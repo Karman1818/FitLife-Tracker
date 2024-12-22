@@ -1,30 +1,30 @@
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from "react";
 
-function AddProductForm() {
+function AddProductForm () {
   const [formData, setFormData] = useState({
-    name: '',
-    calories: '',
-    category: '',
+    name: "",
+    calories: "",
+    category: "",
     favorite: false,
   });
-
-  const handleChange = (e) => {
+  
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === "checkbox" ? checked : value,
     });
   };
-
-  const handleSubmit = (e) => {
+  
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!formData.name || !formData.calories) {
-      alert('Wypełnij wymagane pola!');
+      alert("Wypełnij wymagane pola!");
       return;
     }
     alert(`Produkt dodany: ${JSON.stringify(formData)}`);
   };
-
+  
   return (
     <form onSubmit={handleSubmit}>
       <div>
