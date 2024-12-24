@@ -9,14 +9,8 @@ type User = {
     height:number;
 }
 
-type Product = {
-    id:number;
-    name:string;
-    calories:string;
-    weight:number;
-    category:string;
-}
+export const useUserStore = create((set) => {
+    users : [
 
-export const useStore = create((set) => {
-
+    ]
 })
