@@ -1,0 +1,23 @@
+.home-container {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  
+  .home-footer {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .home-footer-link {
+    text-decoration: none;
+    color: black;
+    text-align: center;
+  }
+  
+  .home-footer-link img {
+    width: 30px;
+  }
+  
+  

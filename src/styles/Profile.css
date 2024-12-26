@@ -1,0 +1,17 @@
+.profile-container {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .profile-stats ul,
+  .profile-meals ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .profile-stats li,
+  .profile-meals li {
+    margin: 5px 0;
+  }
+  

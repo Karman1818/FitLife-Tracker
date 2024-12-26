@@ -1,21 +1,22 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import BMI from "./pages/BMI";
 import Profile from "./pages/Profile";
-import NotFound from "./pages/NotFound";
-import "./App.css";
+import HeaderNav from "./components/HeaderNav";
+import FooterNav from "./components/FooterNav";
 
-function App() {
+const App = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/bmi" element={<BMI />} />
-        <Route path="profile/:userId" element={<Profile />} />
-        <Route path="/404" element={<NotFound />} />
+        <Route path="/profile/:userId" element={<Profile />} />
       </Routes>
+      <HeaderNav />
+      <FooterNav />
     </Router>
   );
-}
+};
 
 export default App;
