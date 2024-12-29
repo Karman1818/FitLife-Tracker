@@ -13,6 +13,7 @@ type Product = {
 type ProductState = {
     products:Product[];
     addProduct: (product:Product) => void;
+    deleteProduct: (id:number) => void;
 
 }
 export const useProductStore = create((set) => ({
