@@ -26,7 +26,11 @@ export const useProductStore = create((set) => ({
     addProduct: (product) =>
         set((state) => ({
             products: [...state.products, product],
-            // test
+        })),
+
+    deleteProduct: (id) =>
+        set((state) => ({
+            products: state.products.filter((product) => product.id !== id)
         }))
 
 

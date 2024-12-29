@@ -10,7 +10,7 @@ type User = {
 }
 
 export const useUserStore = create((set) => {
-    users : [
+    [
 
     ]
 })
