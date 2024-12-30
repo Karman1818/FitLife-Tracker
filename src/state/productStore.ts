@@ -10,29 +10,137 @@ type Product = {
     favourite:boolean;
 }
 
-type ProductState = {
+type Meal = {
+    id:number,
+    name:string,
     products:Product[];
-    addProduct: (product:Product) => void;
-    deleteProduct: (id:number) => void;
+}
+
+type Day = {
+    id:number,
+    name:string,
+    meals:Meal[]
+}
+
+type UserState = {
+    days: Day[];
+    addProductToMeal: (dayId:number,mealId:number,product:Product) => void;
+    deleteProductFromMeal: (dayId:number,mealId:number,product:Product) => void;
 
 }
-export const useProductStore = create((set) => ({
-    products:[
-        { id: 1, name: "Apple", calories: "52", weight: 150, category: "Snack", favourite: true },
-        { id: 2, name: "Banana", calories: "89", weight: 120, category: "Snack", favourite: false },
-        { id: 3, name: "Grilled Chicken", calories: "165", weight: 200, category: "Dinner", favourite: true },
-        { id: 4, name: "Brown Rice", calories: "111", weight: 180, category: "Dinner", favourite: false },
-        { id: 5, name: "Boiled Egg", calories: "68", weight: 50, category: "Breakfast", favourite: true },
+export const useUserStore = create((set) => ({
+    days: [
+        {
+            id:1,
+            name:"Monday",
+            meals: [
+                {id:1, name:"Breakfast", products: []},
+                {id:2, name:"Second Breakfast", products: []},
+                {id:3, name:"Lunch", products: []},
+                {id:4, name:"Afternoon Snack", products: []},
+                {id:5, name:"Dinner", products: []},
+            ]
+        },
+        {
+            id:2,
+            name:"Tuesday",
+            meals: [
+                {id:1, name:"Breakfast", products: []},
+                {id:2, name:"Second Breakfast", products: []},
+                {id:3, name:"Lunch", products: []},
+                {id:4, name:"Afternoon Snack", products: []},
+                {id:5, name:"Dinner", products: []},
+            ]
+        },
+        {
+            id:3,
+            name:"Wednesday",
+            meals: [
+                {id:1, name:"Breakfast", products: []},
+                {id:2, name:"Second Breakfast", products: []},
+                {id:3, name:"Lunch", products: []},
+                {id:4, name:"Afternoon Snack", products: []},
+                {id:5, name:"Dinner", products: []},
+            ]
+        },
+        {
+            id:4,
+            name:"Thursday",
+            meals: [
+                {id:1, name:"Breakfast", products: []},
+                {id:2, name:"Second Breakfast", products: []},
+                {id:3, name:"Lunch", products: []},
+                {id:4, name:"Afternoon Snack", products: []},
+                {id:5, name:"Dinner", products: []},
+            ]
+        },
+        {
+            id:5,
+            name:"Friday",
+            meals: [
+                {id:1, name:"Breakfast", products: []},
+                {id:2, name:"Second Breakfast", products: []},
+                {id:3, name:"Lunch", products: []},
+                {id:4, name:"Afternoon Snack", products: []},
+                {id:5, name:"Dinner", products: []},
+            ]
+        },
+        {
+            id:6,
+            name:"Saturday",
+            meals: [
+                {id:1, name:"Breakfast", products: []},
+                {id:2, name:"Second Breakfast", products: []},
+                {id:3, name:"Lunch", products: []},
+                {id:4, name:"Afternoon Snack", products: []},
+                {id:5, name:"Dinner", products: []},
+            ]
+        },
+        {
+            id:7,
+            name:"Sunday",
+            meals: [
+                {id:1, name:"Breakfast", products: []},
+                {id:2, name:"Second Breakfast", products: []},
+                {id:3, name:"Lunch", products: []},
+                {id:4, name:"Afternoon Snack", products: []},
+                {id:5, name:"Dinner", products: []},
+            ]
+        },
     ],
-    addProduct: (product) =>
+    addProductToMeal: (dayId,mealId,product) =>
         set((state) => ({
-            products: [...state.products, product],
+            days: state.days.map((day) => (
+                day.id === dayId ? {
+                    ...day,
+                    meals: day.meals.map((meal) => (
+                        meal.id === mealId ? {
+                            ...meal,
+                            products: [...meal.products,product]}
+                            : meal
+
+                    ))
+                }
+                : day
+            ))
         })),
 
-    deleteProduct: (id) =>
+    deleteProductFromMeal: (dayId,mealId,productId) =>
         set((state) => ({
-            products: state.products.filter((product) => product.id !== id)
-        }))
+            days: state.days.map((day) => (
+                day.id === dayId ? {
+                        ...day,
+                        meals: day.meals.map((meal) => (
+                            meal.id === mealId ? {
+                                    ...meal,
+                                    products: meal.products.filter((product) => product.id !== productId)}
+                                : meal
+
+                        ))
+                    }
+                    : day
+            ))
+        })),
 
 
 }))
