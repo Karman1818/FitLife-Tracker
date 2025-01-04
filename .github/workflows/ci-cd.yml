@@ -7,6 +7,7 @@ jobs:
     name: check linting (es-lint)
     runs-on: ubuntu-latest
     steps:
+<<<<<<< HEAD
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -37,3 +38,27 @@ jobs:
 
       - name: Build Vite
         run: ~/.bun/bin/bun run build
+=======
+      - uses: actions/checkout@v4
+      - name: Setup Bun
+        run: |
+          curl -fsSL https://bun.sh/install | bash
+      - name: Install dependencies
+        run: ~/.bun/bin/bun install
+      - name: Run linting
+        run: ~/.bun/bin/bun lint
+
+  build:
+    name: test build (next)
+    needs: es-lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Bun
+        run: |
+          curl -fsSL https://bun.sh/install | bash
+      - name: Install dependencies
+        run: ~/.bun/bin/bun install
+      - name: Build
+        run: ~/.bun/bin/bun build
+>>>>>>> main
