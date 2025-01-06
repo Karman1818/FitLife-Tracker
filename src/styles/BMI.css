@@ -1,0 +1,32 @@
+.bmi-container {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .bmi-form {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .bmi-input-group {
+    margin-bottom: 10px;
+  }
+  
+  .bmi-input-group input {
+    margin-left: 10px;
+    padding: 5px;
+    width: 150px;
+  }
+  
+  .bmi-button {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  
+  

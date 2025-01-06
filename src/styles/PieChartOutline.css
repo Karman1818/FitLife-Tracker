@@ -1,0 +1,16 @@
+.pie {
+  border-radius: 50%;
+  position: relative;
+  background: rgba(153, 205, 50, 0.125);
+}
+
+.inner-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80%; /* Mniejsze wewnętrzne koło */
+  height: 80%;
+  border-radius: 50%;
+  background: rgb(36, 36, 36); /* Kolor czarny */
+  transform: translate(-50%, -50%);
+}
