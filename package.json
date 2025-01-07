@@ -11,18 +11,13 @@
     "lint": "eslint ."
   },
   "dependencies": {
-<<<<<<< HEAD
     "@types/axios": "^0.9.36",
     "axios": "^1.7.9",
+    "next": "15.1.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^7.1.1"
-=======
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "zustand": "^5.0.2",
-    "next": "15.1.2"
->>>>>>> e737f1f7f71575b1b19093da67b57f6d2113e421
+    "react-router-dom": "^7.1.1",
+    "zustand": "^5.0.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.16.0",

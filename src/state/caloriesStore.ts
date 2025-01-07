@@ -22,89 +22,89 @@ type Day = {
     meals:Meal[]
 }
 
-type UserState = {
+type CaloriesState = {
     days: Day[];
     addProductToMeal: (dayId:number,mealId:number,product:Product) => void;
     deleteProductFromMeal: (dayId:number,mealId:number,product:Product) => void;
 
 }
-export const useUserStore = create((set) => ({
+export const useCaloriesStore = create((set) => ({
     days: [
         {
             id:1,
-            name:"Monday",
+            name:"Monday ",
             meals: [
-                {id:1, name:"Breakfast", products: []},
-                {id:2, name:"Second Breakfast", products: []},
-                {id:3, name:"Lunch", products: []},
-                {id:4, name:"Afternoon Snack", products: []},
-                {id:5, name:"Dinner", products: []},
+                {id:1, name:"Breakfast ", products: []},
+                {id:2, name:"Second Breakfast ", products: []},
+                {id:3, name:"Lunch ", products: []},
+                {id:4, name:"Afternoon Snack ", products: []},
+                {id:5, name:"Dinner ", products: []},
             ]
         },
         {
             id:2,
-            name:"Tuesday",
+            name:"Tuesday ",
             meals: [
-                {id:1, name:"Breakfast", products: []},
-                {id:2, name:"Second Breakfast", products: []},
-                {id:3, name:"Lunch", products: []},
-                {id:4, name:"Afternoon Snack", products: []},
-                {id:5, name:"Dinner", products: []},
+                {id:1, name:"Breakfast ", products: []},
+                {id:2, name:"Second Breakfast ", products: []},
+                {id:3, name:"Lunch ", products: []},
+                {id:4, name:"Afternoon Snack ", products: []},
+                {id:5, name:"Dinner ", products: []},
             ]
         },
         {
             id:3,
-            name:"Wednesday",
+            name:"Wednesday ",
             meals: [
-                {id:1, name:"Breakfast", products: []},
-                {id:2, name:"Second Breakfast", products: []},
-                {id:3, name:"Lunch", products: []},
-                {id:4, name:"Afternoon Snack", products: []},
-                {id:5, name:"Dinner", products: []},
+                {id:1, name:"Breakfast ", products: []},
+                {id:2, name:"Second Breakfast ", products: []},
+                {id:3, name:"Lunch ", products: []},
+                {id:4, name:"Afternoon Snack ", products: []},
+                {id:5, name:"Dinner ", products: []},
             ]
         },
         {
             id:4,
-            name:"Thursday",
+            name:"Thursday ",
             meals: [
-                {id:1, name:"Breakfast", products: []},
-                {id:2, name:"Second Breakfast", products: []},
-                {id:3, name:"Lunch", products: []},
-                {id:4, name:"Afternoon Snack", products: []},
-                {id:5, name:"Dinner", products: []},
+                {id:1, name:"Breakfast ", products: []},
+                {id:2, name:"Second Breakfast ", products: []},
+                {id:3, name:"Lunch ", products: []},
+                {id:4, name:"Afternoon Snack ", products: []},
+                {id:5, name:"Dinner ", products: []},
             ]
         },
         {
             id:5,
-            name:"Friday",
+            name:"Friday ",
             meals: [
-                {id:1, name:"Breakfast", products: []},
-                {id:2, name:"Second Breakfast", products: []},
-                {id:3, name:"Lunch", products: []},
-                {id:4, name:"Afternoon Snack", products: []},
-                {id:5, name:"Dinner", products: []},
+                {id:1, name:"Breakfast ", products: []},
+                {id:2, name:"Second Breakfast ", products: []},
+                {id:3, name:"Lunch ", products: []},
+                {id:4, name:"Afternoon Snack ", products: []},
+                {id:5, name:"Dinner ", products: []},
             ]
         },
         {
             id:6,
-            name:"Saturday",
+            name:"Saturday ",
             meals: [
-                {id:1, name:"Breakfast", products: []},
-                {id:2, name:"Second Breakfast", products: []},
-                {id:3, name:"Lunch", products: []},
-                {id:4, name:"Afternoon Snack", products: []},
-                {id:5, name:"Dinner", products: []},
+                {id:1, name:"Breakfast ", products: []},
+                {id:2, name:"Second Breakfast ", products: []},
+                {id:3, name:"Lunch ", products: []},
+                {id:4, name:"Afternoon Snack ", products: []},
+                {id:5, name:"Dinner ", products: []},
             ]
         },
         {
             id:7,
-            name:"Sunday",
+            name:"Sunday ",
             meals: [
-                {id:1, name:"Breakfast", products: []},
-                {id:2, name:"Second Breakfast", products: []},
-                {id:3, name:"Lunch", products: []},
-                {id:4, name:"Afternoon Snack", products: []},
-                {id:5, name:"Dinner", products: []},
+                {id:1, name:"Breakfast ", products: []},
+                {id:2, name:"Second Breakfast ", products: []},
+                {id:3, name:"Lunch ", products: []},
+                {id:4, name:"Afternoon Snack ", products: []},
+                {id:5, name:"Dinner ", products: []},
             ]
         },
     ],

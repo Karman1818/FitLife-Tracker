@@ -1,10 +1,13 @@
-import AddProductForm from "../components/AddProductForm";
+import {Navigation} from "../components/Navigation.tsx";
+import {CaloriesManager} from "../components/CaloriesManager.tsx";
+
 
 const Home = () => {
   return (
     <div>
-      <h1>Strona glowna</h1>
-      <AddProductForm />
+        <Navigation/>
+        <CaloriesManager/>
+
     </div>
   );
 };
