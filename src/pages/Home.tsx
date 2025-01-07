@@ -14,6 +14,10 @@ const Home = () => {
   const caloriePercentage = Math.min((consumedCalories / goalCalories) * 100, 100);
   const waterPercentage = Math.min((consumedWater / goalWater) * 100, 100);
 
+  // Obliczanie pozostałych kalorii i wody do zdobycia celu
+  const remainingCalories = goalCalories - consumedCalories;
+  const remainingWater = goalWater - consumedWater;
+
   const handleAddProduct = (product) => {
     // Aktualizacja kalorii i wody
     setConsumedCalories((prev) => prev + product.calories);
@@ -23,10 +27,16 @@ const Home = () => {
     setMeals((prevMeals) => [...prevMeals, product]);
   };
 
-  const GoalCard = ({ title, percentage, goal, setGoal, unit }) => (
+  const GoalCard = ({ title, percentage, goal, setGoal, unit, value, remainingValue }) => (
     <div className="goal-card">
       <h3>{title}</h3>
-      <PieChartComponent percentage={percentage} size={200} />
+      <PieChartComponent
+        percentage={percentage}
+        size={200}
+        value={value}
+        unit={unit}
+        remainingValue={remainingValue} // Przekazanie pozostałej wartości
+      />
       <div>
         <label>
           Cel {unit}:
@@ -44,7 +54,6 @@ const Home = () => {
   return (
     <div className="home-container">
       <h1>Strona Główna</h1>
-      <p>Witaj w aplikacji do śledzenia kalorii i nawodnienia!</p>
 
       <div className="goals-container">
         <GoalCard
@@ -52,14 +61,18 @@ const Home = () => {
           percentage={caloriePercentage}
           goal={goalCalories}
           setGoal={setGoalCalories}
-          unit="kalorii"
+          unit="kcal"
+          value={consumedCalories}
+          remainingValue={remainingCalories} // Pozostała liczba kalorii
         />
         <GoalCard
           title="Spożyta Woda"
           percentage={waterPercentage}
           goal={goalWater}
           setGoal={setGoalWater}
-          unit="wody (ml)"
+          unit="ml"
+          value={consumedWater}
+          remainingValue={remainingWater} // Pozostała liczba ml wody
         />
       </div>
 

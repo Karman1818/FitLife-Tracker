@@ -1,24 +1,15 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import BMI from "./pages/BMI";
-import Profile from "./pages/Profile";
+import { Router } from "./components/Router";
 import HeaderNav from "./components/HeaderNav";
 import FooterNav from "./components/FooterNav";
-// import Meals from "./pages/Meals";
-import "./App.css"
+import "./App.css";
 
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/bmi" element={<BMI />} />
-        <Route path="/profile/:userId" element={<Profile />} />
-        {/* <Route path="/meals" element={<Meals />} /> */}
-      </Routes>
+    <div>
+      <Router />
       <HeaderNav />
       <FooterNav />
-    </Router>
+    </div>
   );
 };
 

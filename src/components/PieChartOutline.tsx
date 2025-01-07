@@ -4,9 +4,12 @@ import "../styles/PieChartOutline.css";
 interface PieChartOutlineProps {
   percentage: number; // Procentowy zakres od 0 do 100
   size: number; // Rozmiar kontenera
+  value: number; // Wartość wyświetlana w centralnym okręgu (kalorie lub ml)
+  unit: string; // Jednostka, np. "kalorii" lub "ml"
+  remainingValue: number; // Pozostała wartość do osiągnięcia celu
 }
 
-const PieChartComponent: React.FC<PieChartOutlineProps> = ({ percentage, size }) => {
+const PieChartComponent: React.FC<PieChartOutlineProps> = ({ percentage, size, value, unit, remainingValue }) => {
   const radius = size / 2; // Średnica
   const innerCircleRadius = radius - 8; // Mniejsze kolo z marginesem 8px
 
@@ -36,8 +39,20 @@ const PieChartComponent: React.FC<PieChartOutlineProps> = ({ percentage, size })
             borderRadius: "50%",
             background: "rgb(36, 36, 36)",
             transform: "translate(-50%, -50%)",
+            display: "flex",
+            flexDirection: "column", // Ustawiamy tekst w kolumnie
+            justifyContent: "center", // Centrujemy w pionie
+            alignItems: "center", // Centrujemy w poziomie
+            color: "white",
+            fontSize: "16px",
+            fontWeight: "bold",
+            textAlign: "center",
+            padding: "5px",
           }}
-        ></div>
+        >
+          <div style={{ color: "yellowgreen", fontSize: "30px" }}>{value} {unit}</div>
+          <div style={{ fontSize: "20px", marginTop: "5px" }}>{remainingValue} {unit}</div>
+        </div>
       </div>
     </div>
   );

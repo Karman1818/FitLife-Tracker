@@ -1,42 +1,53 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  /* box-sizing: border-box; */
+  width: 100%;
+  overflow: hidden;
+}
+
 .home-container {
   font-family: 'Arial', sans-serif;
   color: #333;
   background-color: #f4f4f4;
-  min-height: 100vh;
+  height: 100vh;
   padding: 20px;
   display: flex;
-  flex-direction: row; /* Zmieniono na row */
+  flex-direction: row; 
   align-items: center;
+  width: 100vw;
 }
 
-/* Nagłówki */
 h1 {
   font-size: 2.5rem;
   font-weight: bold;
-  color: #2e7d32; /* Zielony kolor */
+  color: #2e7d32; 
   margin-bottom: 10px;
+  display: flex;
+  position: absolute;
+  top: 100px; /* Dostosuj tę wartość w zależności od wysokości nagłówka */
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 h3 {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #1565c0; /* Niebieski kolor */
+  color: #1565c0;
   margin: 10px 0;
 }
 
-/* Styl akapitów */
 p {
   font-size: 1.2rem;
   color: #666;
   margin-bottom: 20px;
 }
 
-/* Kontener dla wykresów */
 .dashboard-container {
   display: flex;
   gap: 20px;
   justify-content: center;
-  flex-wrap: wrap; /* Dostosowanie do mniejszych ekranów */
+  flex-wrap: wrap; 
   margin-bottom: 30px;
 }
 
@@ -64,7 +75,6 @@ p {
   font-size: 1rem;
 }
 
-/* Formularz dodawania produktu */
 form {
   background-color: #fff;
   border: 1px solid #ddd;
@@ -100,7 +110,7 @@ form input[type="checkbox"] {
 }
 
 form button {
-  background-color: #2e7d32; /* Zielony */
+  background-color: #2e7d32; 
   color: #fff;
   border: none;
   padding: 10px 15px;
@@ -111,19 +121,17 @@ form button {
 }
 
 form button:hover {
-  background-color: #1b5e20; /* Ciemniejszy zielony */
+  background-color: #1b5e20; 
 }
 
-/* Styl dla PieChartComponent */
 .pie {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .inner-circle {
-  background-color: #f4f4f4; /* Jasny szary */
+  background-color: #f4f4f4;
 }
 
-/* Responsywność */
 @media (max-width: 768px) {
   .dashboard-container {
     flex-direction: column;
@@ -140,9 +148,9 @@ form button:hover {
   }
 }
 
-/* Nowe style */
 .goals-container {
   display: flex;
+  flex-direction: column;
   gap: 20px;
   justify-content: center;
 }
