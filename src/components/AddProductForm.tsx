@@ -1,32 +1,46 @@
 import React, { useState } from "react";
 
-interface AddProductFormProps {
-  onCaloriesChange: (calories: number) => void; // Callback do aktualizacji spożytych kalorii
-}
-
-const AddProductForm: React.FC<AddProductFormProps> = ({ onCaloriesChange }) => {
+const AddProductForm = ({ onAddProduct }) => {
   const [formData, setFormData] = useState({
     name: "",
     calories: "",
+    water: "",
+    category: "",
+    favorite: false,
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: type === "checkbox" ? checked : value,
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const calories = parseInt(formData.calories, 10);
-    if (calories) {
-      onCaloriesChange((prev) => prev + calories); // Aktualizujemy spożyte kalorie
-      setFormData({ name: "", calories: "" }); // Resetujemy formularz
-    } else {
-      alert("Wprowadź liczbę kalorii!");
+
+    if (!formData.name || (!formData.calories && !formData.water)) {
+      alert("Wypełnij wymagane pola!");
+      return;
     }
+
+    onAddProduct({
+      name: formData.name,
+      calories: parseFloat(formData.calories) || 0,
+      water: parseFloat(formData.water) || 0,
+      category: formData.category || "Brak",
+      favorite: formData.favorite,
+    });
+
+    // Reset formularza
+    setFormData({
+      name: "",
+      calories: "",
+      water: "",
+      category: "",
+      favorite: false,
+    });
   };
 
   return (
@@ -39,6 +53,7 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ onCaloriesChange }) => 
             name="name"
             value={formData.name}
             onChange={handleChange}
+            required
           />
         </label>
       </div>
@@ -50,7 +65,39 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ onCaloriesChange }) => 
             name="calories"
             value={formData.calories}
             onChange={handleChange}
-            required
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          Woda (ml):
+          <input
+            type="number"
+            name="water"
+            value={formData.water}
+            onChange={handleChange}
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          Kategoria:
+          <input
+            type="text"
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          Dodaj do ulubionych:
+          <input
+            type="checkbox"
+            name="favorite"
+            checked={formData.favorite}
+            onChange={handleChange}
           />
         </label>
       </div>

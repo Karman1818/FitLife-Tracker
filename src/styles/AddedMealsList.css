@@ -1,0 +1,44 @@
+.added-meals-list {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.added-meals-list h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1565c0; /* Niebieski */
+  margin-bottom: 15px;
+}
+
+.added-meals-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.meal-item {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.meal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.meal-header .favorite-badge {
+  color: #f4d03f; /* Złoty kolor */
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.meal-item:last-child {
+  border-bottom: none;
+}

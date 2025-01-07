@@ -2,45 +2,69 @@ import { useState } from "react";
 import "../styles/Home.css";
 import AddProductForm from "../components/AddProductForm";
 import PieChartComponent from "../components/PieChartOutline";
+import AddedMealsList from "../components/AddedMealsList";
 
 const Home = () => {
-  const [goalCalories, setGoalCalories] = useState(640); // Cel kalorii
+  const [goalCalories, setGoalCalories] = useState(2000); // Cel kalorii
   const [consumedCalories, setConsumedCalories] = useState(0); // Spożyte kalorie
+  const [goalWater, setGoalWater] = useState(2500); // Cel wody w ml
+  const [consumedWater, setConsumedWater] = useState(0); // Wypita woda w ml
+  const [meals, setMeals] = useState([]); // Lista dodanych posiłków
 
-  // Obliczamy procent spożycia kalorii w stosunku do celu
-  const percentage = Math.min((consumedCalories / goalCalories) * 100, 100);
+  const caloriePercentage = Math.min((consumedCalories / goalCalories) * 100, 100);
+  const waterPercentage = Math.min((consumedWater / goalWater) * 100, 100);
+
+  const handleAddProduct = (product) => {
+    // Aktualizacja kalorii i wody
+    setConsumedCalories((prev) => prev + product.calories);
+    setConsumedWater((prev) => prev + product.water);
+
+    // Dodanie produktu do listy
+    setMeals((prevMeals) => [...prevMeals, product]);
+  };
+
+  const GoalCard = ({ title, percentage, goal, setGoal, unit }) => (
+    <div className="goal-card">
+      <h3>{title}</h3>
+      <PieChartComponent percentage={percentage} size={200} />
+      <div>
+        <label>
+          Cel {unit}:
+          <input
+            style={{ width: "50px" }}
+            type="number"
+            value={goal}
+            onChange={(e) => setGoal(Number(e.target.value))}
+          />
+        </label>
+      </div>
+    </div>
+  );
 
   return (
     <div className="home-container">
       <h1>Strona Główna</h1>
-      <p>Witaj w aplikacji do mierzenia kalorii z posiłków!</p>
+      <p>Witaj w aplikacji do śledzenia kalorii i nawodnienia!</p>
 
-      {/* Pie Chart Component */}
-      <div
-        style={{
-          width: "300px",
-          height: "300px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <PieChartComponent percentage={percentage} size={300} />
+      <div className="goals-container">
+        <GoalCard
+          title="Spożyte Kalorie"
+          percentage={caloriePercentage}
+          goal={goalCalories}
+          setGoal={setGoalCalories}
+          unit="kalorii"
+        />
+        <GoalCard
+          title="Spożyta Woda"
+          percentage={waterPercentage}
+          goal={goalWater}
+          setGoal={setGoalWater}
+          unit="wody (ml)"
+        />
       </div>
 
-      {/* Form to add products */}
-      <AddProductForm onCaloriesChange={setConsumedCalories} />
-
-      <div>
-        <label>
-          Cel kalorii:
-          <input
-            type="number"
-            value={goalCalories}
-            onChange={(e) => setGoalCalories(Number(e.target.value))}
-          />
-        </label>
-      </div>
+      <AddProductForm onAddProduct={handleAddProduct} />
+      <AddedMealsList meals={meals} />
     </div>
   );
 };

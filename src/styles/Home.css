@@ -1,3 +1,158 @@
 .home-container {
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  background-color: #f4f4f4;
+  min-height: 100vh;
   padding: 20px;
+  display: flex;
+  flex-direction: row; /* Zmieniono na row */
+  align-items: center;
+}
+
+/* Nagłówki */
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #2e7d32; /* Zielony kolor */
+  margin-bottom: 10px;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1565c0; /* Niebieski kolor */
+  margin: 10px 0;
+}
+
+/* Styl akapitów */
+p {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Kontener dla wykresów */
+.dashboard-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap; /* Dostosowanie do mniejszych ekranów */
+  margin-bottom: 30px;
+}
+
+.pie-chart-container {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 220px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pie-chart-container input {
+  width: 80%;
+  padding: 5px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 1rem;
+}
+
+/* Formularz dodawania produktu */
+form {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form div {
+  margin-bottom: 15px;
+}
+
+form label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+form input[type="text"],
+form input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+form input[type="checkbox"] {
+  margin-left: 5px;
+}
+
+form button {
+  background-color: #2e7d32; /* Zielony */
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: #1b5e20; /* Ciemniejszy zielony */
+}
+
+/* Styl dla PieChartComponent */
+.pie {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.inner-circle {
+  background-color: #f4f4f4; /* Jasny szary */
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pie-chart-container {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  form {
+    width: 90%;
+  }
+}
+
+/* Nowe style */
+.goals-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.goal-card {
+  width: 300px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: red;
 }

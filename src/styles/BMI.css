@@ -1,32 +1,54 @@
 .bmi-container {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .bmi-form {
-    max-width: 400px;
-    margin: 0 auto;
-  }
-  
-  .bmi-input-group {
-    margin-bottom: 10px;
-  }
-  
-  .bmi-input-group input {
-    margin-left: 10px;
-    padding: 5px;
-    width: 150px;
-  }
-  
-  .bmi-button {
-    padding: 10px 20px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Ustawienie minimalnej wysokości na 100% wysokości widoku */
+  text-align: center;
+}
 
-  
-  
+.bmi-form {
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bmi-input-group {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.bmi-input-group label {
+  display: block;
+  text-align: left;
+  width: 100%;
+}
+
+.bmi-input-group input {
+  margin-left: 10px;
+  padding: 5px;
+  width: calc(100% - 20px); /* Ustawienie szerokości na 100% minus marginesy */
+  box-sizing: border-box;
+}
+
+.bmi-button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.bmi-button:hover {
+  background-color: #45a049; /* Ciemniejszy zielony przy najechaniu */
+}
+
+.bmi-result {
+  margin-top: 20px;
+  text-align: center;
+}

@@ -1,7 +1,7 @@
 .pie {
   border-radius: 50%;
   position: relative;
-  background: rgba(153, 205, 50, 0.125);
+  background: rgb(65, 86, 22);
 }
 
 .inner-circle {
