@@ -4,27 +4,27 @@ import Select from 'react-select';
 type ProductOption = {
   label: string;
   value: string;
+  calories?: string;
 };
 
 const AddProductForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     calories: "",
-    category: "",
-    favorite: false,
+    weightInGrams: "",
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: value,
     });
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!formData.name || !formData.calories) {
+    if (!formData.name || !formData.calories || !formData.weightInGrams) {
       alert("Fill in the required fields!");
       return;
     }
@@ -42,9 +42,10 @@ const AddProductForm = () => {
       setIsLoading(true);
       const response = await fetch(URL);
       const data = await response.json();
-      const products = data.products.map((product) => ({
+      const products = data.products.map((product: any) => ({
         label: product.product_name || 'Unknown name',
         value: product.id || product.code,
+        calories: product.nutriments?.energy_kcal || 'Unknown', // Dodanie kalorii
       }));
       setOptions(products);
     } catch (error) {
@@ -62,6 +63,7 @@ const AddProductForm = () => {
     setFormData({
       ...formData,
       name: selectedOption?.label || '',
+      calories: selectedOption?.calories || '', // Ustawienie kalorii po wyborze produktu
     });
   };
 
@@ -69,13 +71,13 @@ const AddProductForm = () => {
       <form onSubmit={handleSubmit}>
         <div>
           <label>
-            Nazwa produktu:
+            Product Name:
             <Select
                 options={options}
                 onInputChange={handleInputChange}
                 isLoading={isLoading}
                 placeholder="Enter the product name..."
-                noOptionsMessage={() => 'Brak wyników'}
+                noOptionsMessage={() => 'No results found'}
                 value={options.find(option => option.label === formData.name) || null}
                 onChange={handleSelectChange}
             />
@@ -95,27 +97,17 @@ const AddProductForm = () => {
         </div>
         <div>
           <label>
-            Category:
+            Weight (in grams):
             <input
-                type="text"
-                name="category"
-                value={formData.category}
+                type="number"
+                name="weightInGrams"
+                value={formData.weightInGrams}
                 onChange={handleChange}
+                required
             />
           </label>
         </div>
-        <div>
-          <label>
-            Add to favourite:
-            <input
-                type="checkbox"
-                name="favorite"
-                checked={formData.favorite}
-                onChange={handleChange}
-            />
-          </label>
-        </div>
-        <button type="submit">Add porduct</button>
+        <button type="submit">Add product</button>
       </form>
   );
 };
