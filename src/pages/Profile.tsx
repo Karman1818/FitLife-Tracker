@@ -1,3 +1,5 @@
+import FooterNav from "../components/FooterNav";
+import HeaderNav from "../components/HeaderNav";
 import "../styles/Profile.css";
 import { useParams } from "react-router-dom";
 
@@ -5,6 +7,7 @@ const Profile = () => {
   const { userId } = useParams<{ userId: string }>();
 
   return (
+    <div>
     <div className="profile-container">
       <h1>Profil użytkownika</h1>
       <p>
@@ -26,6 +29,9 @@ const Profile = () => {
           <li>Kolacja: Sałatka - 200 kcal</li>
         </ul>
       </div>
+      </div>
+      <HeaderNav />
+      <FooterNav />
     </div>
   );
 };

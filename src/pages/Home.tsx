@@ -3,6 +3,8 @@ import "../styles/Home.css";
 import AddProductForm from "../components/AddProductForm";
 import PieChartComponent from "../components/PieChartOutline";
 import AddedMealsList from "../components/AddedMealsList";
+import HeaderNav from "../components/HeaderNav";
+import FooterNav from "../components/FooterNav";
 
 const Home = () => {
   const [goalCalories, setGoalCalories] = useState(2000); // Cel kalorii
@@ -11,7 +13,10 @@ const Home = () => {
   const [consumedWater, setConsumedWater] = useState(0); // Wypita woda w ml
   const [meals, setMeals] = useState([]); // Lista dodanych posiłków
 
-  const caloriePercentage = Math.min((consumedCalories / goalCalories) * 100, 100);
+  const caloriePercentage = Math.min(
+    (consumedCalories / goalCalories) * 100,
+    100
+  );
   const waterPercentage = Math.min((consumedWater / goalWater) * 100, 100);
 
   // Obliczanie pozostałych kalorii i wody do zdobycia celu
@@ -27,7 +32,15 @@ const Home = () => {
     setMeals((prevMeals) => [...prevMeals, product]);
   };
 
-  const GoalCard = ({ title, percentage, goal, setGoal, unit, value, remainingValue }) => (
+  const GoalCard = ({
+    title,
+    percentage,
+    goal,
+    setGoal,
+    unit,
+    value,
+    remainingValue,
+  }) => (
     <div className="goal-card">
       <h3>{title}</h3>
       <PieChartComponent
@@ -52,32 +65,36 @@ const Home = () => {
   );
 
   return (
-    <div className="home-container">
-      <h1>Strona Główna</h1>
+    <div>
+      <div className="home-container">
+        <h1>Strona Główna</h1>
 
-      <div className="goals-container">
-        <GoalCard
-          title="Spożyte Kalorie"
-          percentage={caloriePercentage}
-          goal={goalCalories}
-          setGoal={setGoalCalories}
-          unit="kcal"
-          value={consumedCalories}
-          remainingValue={remainingCalories} // Pozostała liczba kalorii
-        />
-        <GoalCard
-          title="Spożyta Woda"
-          percentage={waterPercentage}
-          goal={goalWater}
-          setGoal={setGoalWater}
-          unit="ml"
-          value={consumedWater}
-          remainingValue={remainingWater} // Pozostała liczba ml wody
-        />
+        <div className="goals-container">
+          <GoalCard
+            title="Spożyte Kalorie"
+            percentage={caloriePercentage}
+            goal={goalCalories}
+            setGoal={setGoalCalories}
+            unit="kcal"
+            value={consumedCalories}
+            remainingValue={remainingCalories} // Pozostała liczba kalorii
+          />
+          <GoalCard
+            title="Spożyta Woda"
+            percentage={waterPercentage}
+            goal={goalWater}
+            setGoal={setGoalWater}
+            unit="ml"
+            value={consumedWater}
+            remainingValue={remainingWater} // Pozostała liczba ml wody
+          />
+        </div>
+
+        <AddProductForm onAddProduct={handleAddProduct} />
+        <AddedMealsList meals={meals} />
       </div>
-
-      <AddProductForm onAddProduct={handleAddProduct} />
-      <AddedMealsList meals={meals} />
+      <HeaderNav />
+      <FooterNav />
     </div>
   );
 };
