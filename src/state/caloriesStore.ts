@@ -4,11 +4,11 @@ import {create} from "zustand";
 type Product = {
     id:number;
     name:string;
+    weightInGrans:number;
     calories:string;
     protein:string;
     carbohydrates:string;
     fat:string;
-    weight:number;
 }
 
 type Meal = {

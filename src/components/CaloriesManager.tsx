@@ -5,7 +5,6 @@ import { useState } from "react";
 export const CaloriesManager = () => {
 
     const Days = useCaloriesStore(state => state.days);
-    const addProductToMeal = useCaloriesStore(state => state.addProductToMeal);
 
     const [openMealForms, setOpenMealForms] = useState<{ [dayId: number]: { [mealId: number]: boolean } }>({});
 

@@ -1,4 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useCaloriesStore } from '../state/caloriesStore.ts';
 import Select from 'react-select';
 
 type ProductOption = {
@@ -6,11 +7,17 @@ type ProductOption = {
   value: string;
 };
 
-const AddProductForm = () => {
+const AddProductForm = ({mealId, dayId}) => {
   const [formData, setFormData] = useState({
     name: "",
     weightInGrams: "",
+    calories:"",
+    protein:"",
+    carbohydrates:"",
+    fat:"",
   });
+
+  const addProductToMeal = useCaloriesStore((state) => state.addProductToMeal)
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -26,7 +33,16 @@ const AddProductForm = () => {
       alert("Fill in the required fields!");
       return;
     }
-    alert(`Product added: ${JSON.stringify(formData)}`);
+    const product = {
+      id: Math.floor(Math.random() * 1000),
+      name: formData.name,
+      weightInGrams: parseFloat(formData.weightInGrams),
+      calories: formData.calories,
+      protein: formData.protein,
+      carbohydrates: formData.carbohydrates,
+      fat: formData.fat,
+    };
+    addProductToMeal(dayId,mealId,product);
   };
 
   const [options, setOptions] = useState<ProductOption[]>([]);
