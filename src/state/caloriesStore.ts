@@ -5,9 +5,10 @@ type Product = {
     id:number;
     name:string;
     calories:string;
+    protein:string;
+    carbohydrates:string;
+    fat:string;
     weight:number;
-    category:string;
-    favourite:boolean;
 }
 
 type Meal = {

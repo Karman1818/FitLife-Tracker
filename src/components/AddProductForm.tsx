@@ -4,13 +4,11 @@ import Select from 'react-select';
 type ProductOption = {
   label: string;
   value: string;
-  calories?: string;
 };
 
 const AddProductForm = () => {
   const [formData, setFormData] = useState({
     name: "",
-    calories: "",
     weightInGrams: "",
   });
 
@@ -24,7 +22,7 @@ const AddProductForm = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!formData.name || !formData.calories || !formData.weightInGrams) {
+    if (!formData.name || !formData.weightInGrams) {
       alert("Fill in the required fields!");
       return;
     }
@@ -45,7 +43,6 @@ const AddProductForm = () => {
       const products = data.products.map((product: any) => ({
         label: product.product_name || 'Unknown name',
         value: product.id || product.code,
-        calories: product.nutriments?.energy_kcal || 'Unknown', // Dodanie kalorii
       }));
       setOptions(products);
     } catch (error) {
@@ -63,7 +60,6 @@ const AddProductForm = () => {
     setFormData({
       ...formData,
       name: selectedOption?.label || '',
-      calories: selectedOption?.calories || '', // Ustawienie kalorii po wyborze produktu
     });
   };
 
@@ -80,18 +76,6 @@ const AddProductForm = () => {
                 noOptionsMessage={() => 'No results found'}
                 value={options.find(option => option.label === formData.name) || null}
                 onChange={handleSelectChange}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Calories:
-            <input
-                type="number"
-                name="calories"
-                value={formData.calories}
-                onChange={handleChange}
-                required
             />
           </label>
         </div>
