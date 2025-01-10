@@ -10,77 +10,103 @@
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: fit-content;
+}
+
+.extreme-bmi {
+  animation: shake 0.5s;
+  animation-iteration-count: 10;
 }
 
 .header {
-  top: -25%;
+  top: -50%;
   text-wrap: nowrap;
+}
+
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .bmi-chart-result {
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   position: relative;
   width: 100%;
 }
 
-/* .bmi-chart-container {
-  width: 100%;
-  max-width: 400px;
-} */
-
 .h1-bmi-result {
-  /* background-color: #f0f0f0; */
-  padding: 10px 15px;
+  color: black;
   border-radius: 8px;
   text-align: center;
   font-weight: bold;
   font-size: 16px;
-  /* border: 1px solid red; */
-  /* bottom: 25px; */
   left: 50%;
-  transform: translate(-50%, 70px);
+  transform: translate(-50%, 15px);
   display: flex;
   flex-direction: column;
 }
 
 .h1-bmi-result span {
-  font-size: 2em;
+  font-size: 2.5em;
+  text-align: center;
   font-weight: bold;
-  margin: 5px 0 0;
 }
 
 .bmi-category {
-  transform: translateX(18%);
-  text-wrap: nowrap;
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .bmi-chart {
   width: 400px;
   height: 200px;
-  /* background: #f9f9f9; */
   border-radius: 5px;
 }
 
-.input-container {
+label {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  position: relative;
   margin-bottom: 20px;
 }
 
-.input-container label {
-  display: block;
-  text-align: left;
+.rangeslider {
   width: 100%;
-  margin-bottom: 5px;
+  height: 20px;
+  border-radius: 5px;
 }
 
-.input-container input {
+.rangeslider::-moz-range-thumb {
+  visibility: hidden;
+  border-radius: 0;
+}
+
+.weight-value,
+.height-value {
+  position: absolute;
+  top: 65%;
+  left: 7px;
+  transform: translateY(-50%);
+  padding: 2px 5px;
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  pointer-events: none;
+}
+
+input {
   padding: 5px;
-  width: 100%;
-  box-sizing: border-box;
 }
 
 .calculate {
@@ -97,43 +123,68 @@
   background-color: #45a049;
 }
 
-.rangeslider {
-  width: 100%;
-  height: 15px;
-  background: #d3d3d3;
-  border-radius: 5px;
-  outline: none;
-}
-
-.rangeslider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  background: #04aa6d;
-  cursor: pointer;
-  border-radius: 50%;
-}
-
-.rangeslider::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
-  background: #04aa6d;
-  cursor: pointer;
-  border-radius: 50%;
-}
-
 @media (max-width: 768px) {
   .bmi-container {
     flex-direction: column;
+    align-items: center;
+    width: 90%;
+    max-width: 400px;
   }
+
+  .header {
+    top: -20%;
+  }
+
   .bmi-result-container {
     position: static;
     transform: none;
     margin-bottom: 10px;
+    width: 100%;
   }
 
   .bmi-chart-container {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
+
+  .bmi-category {
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .bmi-chart {
+    width: 100%;
+  }
+
+  form {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  label {
+    width: 100%;
+  }
+
+  .rangeslider {
+    width: 100%;
+  }
+}
+
+@keyframes shake {
+  0% { transform: translate(calc(-50% + 1px), calc(-50% + 1px)) rotate(0deg); }
+  10% { transform: translate(calc(-50% - 1px), calc(-50% - 2px)) rotate(-1deg); }
+  20% { transform: translate(calc(-50% - 3px), calc(-50% + 0px)) rotate(1deg); }
+  30% { transform: translate(calc(-50% + 3px), calc(-50% + 2px)) rotate(0deg); }
+  40% { transform: translate(calc(-50% + 1px), calc(-50% - 1px)) rotate(1deg); }
+  50% { transform: translate(calc(-50% - 1px), calc(-50% + 2px)) rotate(-1deg); }
+  60% { transform: translate(calc(-50% - 3px), calc(-50% + 1px)) rotate(0deg); }
+  70% { transform: translate(calc(-50% + 3px), calc(-50% + 1px)) rotate(-1deg); }
+  80% { transform: translate(calc(-50% - 1px), calc(-50% - 1px)) rotate(1deg); }
+  90% { transform: translate(calc(-50% + 1px), calc(-50% + 2px)) rotate(0deg); }
+  100% { transform: translate(calc(-50% + 1px), calc(-50% - 2px)) rotate(-1deg); }
 }

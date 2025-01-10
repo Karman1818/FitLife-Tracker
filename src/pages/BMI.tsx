@@ -3,12 +3,19 @@ import HeaderNav from "../components/HeaderNav";
 import FooterNav from "../components/FooterNav";
 import "../styles/BMI.css";
 import DrawBMICanvas from "../components/DrawBMICanvas";
+import Video from "../components/video";
 
 const BMIChart = () => {
-  // const canvasRef = useRef<HTMLCanvasElement>(null);
   const [bmi, setBmi] = useState<number | null>(null);
-  const [currentAngle, setCurrentAngle] = useState<number>(-Math.PI); // Start od lewej strony (-90°)
+  const [currentAngle, setCurrentAngle] = useState<number>(-Math.PI);
   const [formData, setFormData] = useState({ weight: "", height: "" });
+  const [isShakeCompleted, setIsShakeCompleted] = useState(false); // Stan do kontrolowania zakończenia animacji
+
+  // Add this function to determine if BMI is extreme
+  const isExtremeBMI = (bmiValue: number | null): boolean => {
+    if (bmiValue === null) return false;
+    return bmiValue < 16 || bmiValue > 40;
+  };
 
   const calculateBmi = (weight: number, height: number): number => {
     return weight / Math.pow(height / 100, 2); // Wzrost w cm
@@ -70,25 +77,59 @@ const BMIChart = () => {
 
     if (bmi < 16) {
       return "Anoreksja";
-    } else if (bmi >= 17 && bmi <= 18.4) {
+    } else if (bmi >= 16 && bmi < 18.5) {
       return "Niedowaga";
-    } else if (bmi >= 18.5 && bmi <= 24.9) {
+    } else if (bmi >= 18.5 && bmi < 25) {
       return "Waga normalna";
-    } else if (bmi >= 25 && bmi <= 29.9) {
+    } else if (bmi >= 25 && bmi < 30) {
       return "Nadwaga";
-    } else if (bmi >= 30 && bmi <= 34.9) {
+    } else if (bmi >= 30 && bmi < 35) {
       return "Otyłość I stopnia";
-    } else if (bmi >= 35 && bmi <= 39.9) {
+    } else if (bmi >= 35 && bmi < 40) {
       return "Otyłość II stopnia";
     } else {
       return "Otyłość III stopnia";
     }
   };
 
+  const getBMICategoryColor = (): string => {
+    if (bmi === null) return "black"; // Domyślny kolor, gdy BMI jest nieznane
+
+    if (bmi < 10) {
+      return "#FF5722"; // Anoreksja
+    } else if (bmi >= 10 && bmi < 16) {
+      return "#FF9800"; // Niedowaga
+    } else if (bmi >= 16 && bmi <= 17) {
+      return "#FFE400"; // Niedowaga
+    } else if (bmi >= 17 && bmi < 18.5) {
+      return "#D4E157"; // Niedowaga
+    } else if (bmi >= 18.5 && bmi < 25) {
+      return "#4CAF50"; // Waga normalna
+    } else if (bmi >= 25 && bmi < 30) {
+      return "#FF9800"; // Nadwaga
+    } else if (bmi >= 30 && bmi < 35) {
+      return "#FF5722"; // Otyłość I stopnia
+    } else if (bmi >= 35 && bmi < 40) {
+      return "#D20000"; // Otyłość II stopnia
+    } else {
+      return "#900000"; // Otyłość III stopnia
+    }
+  };
+
+  // Funkcja, która zostanie wywołana po zakończeniu animacji "shake"
+  const handleShakeEnd = () => {
+    setIsShakeCompleted(true);
+  };
+
   return (
     <div>
-      <div className="bmi-container">
-      <h1 className="header">Calculate your BMI</h1>
+      {isShakeCompleted && <Video />} {/* Pokazuje komponent Video po zakończeniu animacji */}
+
+      <div
+        className={`bmi-container ${isExtremeBMI(bmi) ? "extreme-bmi" : ""}`}
+        onAnimationEnd={handleShakeEnd} // Ustawienie funkcji, która reaguje na zakończenie animacji
+      >
+        <h1 className="header">Calculate your BMI</h1>
         <form onSubmit={handleSubmit}>
           <label>
             Weight (kg):
@@ -128,14 +169,11 @@ const BMIChart = () => {
             <div>
               <h1 className="h1-bmi-result">
                 BMI:
-                <span>{bmi.toFixed(2)}</span>
+                <span style={{ color: getBMICategoryColor() }}>
+                  {bmi.toFixed(2)}
+                </span>{" "}
               </h1>
-              <p
-                className="bmi-category"
-                // style={{ marginTop: "20px", fontSize: "18px" }}
-              >
-                Kategoria BMI: {getBMICategory()}
-              </p>
+              <p className="bmi-category">{getBMICategory()}</p>
             </div>
           )}
           <DrawBMICanvas
@@ -145,6 +183,7 @@ const BMIChart = () => {
           />
         </div>
       </div>
+
       <HeaderNav />
       <FooterNav />
     </div>
