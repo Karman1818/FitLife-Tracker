@@ -1,5 +1,6 @@
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Home from "../pages/Home.tsx";
+import Calories from "../pages/Calories.tsx";
 import BMI from "../pages/BMI";
 import Profile from "../pages/Profile";
 import Meals from "../pages/Meals.tsx";
@@ -9,6 +10,10 @@ const router = createBrowserRouter([
     {
         path:"/",
         element:<Home/>,
+    },
+    {
+        path:"/calories",
+        element:<Calories/>,
     },
     {
         path:"/BMI",
