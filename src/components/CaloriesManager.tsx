@@ -5,6 +5,7 @@ import { useState } from "react";
 export const CaloriesManager = () => {
 
     const Days = useCaloriesStore(state => state.days);
+    const deleteProductFromMeal = useCaloriesStore(state => state.deleteProductFromMeal)
 
     const [openMealForms, setOpenMealForms] = useState<{ [dayId: number]: { [mealId: number]: boolean } }>({});
 
@@ -30,12 +31,10 @@ export const CaloriesManager = () => {
                                 Add new product to your meal
                             </button>
 
-                            {/* Form to add a new product to the meal */}
                             {openMealForms[day.id]?.[meal.id] && (
                                 <AddProductForm mealId={meal.id} dayId={day.id} />
                             )}
 
-                            {/* Displaying products with all details */}
                             {meal.products.length === 0 ? (
                                 <p>No products added yet.</p>
                             ) : (
@@ -47,6 +46,7 @@ export const CaloriesManager = () => {
                                         <p>Protein: {product.protein} g</p>
                                         <p>Carbohydrates: {product.carbohydrates} g</p>
                                         <p>Fat: {product.fat} g</p>
+                                        <button onClick={() => deleteProductFromMeal(day.id,meal.id,product.id)}>Delete Product</button>
                                     </div>
                                 ))
                             )}
