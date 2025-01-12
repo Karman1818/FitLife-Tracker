@@ -7,24 +7,28 @@ type ProductOption = {
   value: string;
 };
 
-const AddProductForm = ({mealId, dayId}) => {
+const AddProductForm = ({ mealId, dayId }) => {
   const [formData, setFormData] = useState({
     name: "",
-    weightInGrams: "",
-    calories:"",
-    protein:"",
-    carbohydrates:"",
-    fat:"",
+    weightInGrams: "100",
+    calories: "",
+    protein: "",
+    carbohydrates: "",
+    fat: "",
   });
 
   const addProductToMeal = useCaloriesStore((state) => state.addProductToMeal);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       [name]: value,
-    });
+    }));
+
+    if (name === "weightInGrams") {
+      fetchProductNutrients(formData.name, parseFloat(value));
+    }
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -49,7 +53,7 @@ const AddProductForm = ({mealId, dayId}) => {
   const [isLoadingProducts, setIsLoadingProducts] = useState(false);
   const [isLoadingNutrients, setIsLoadingNutrients] = useState(false);
 
-  const fetchProductNutrients = async (productId: string) => {
+  const fetchProductNutrients = async (productId: string, weightInGrams: number) => {
     const URL = `https://world.openfoodfacts.org/api/v0/product/${productId}.json`;
 
     try {
@@ -58,19 +62,21 @@ const AddProductForm = ({mealId, dayId}) => {
       const data = await response.json();
       const productData = data.product;
 
-      const nutriments = {
-        calories: productData.nutriments?.energy || 'Unknown',
-        protein: productData.nutriments?.proteins_100g || 'Unknown',
-        carbohydrates: productData.nutriments?.carbohydrates_100g || 'Unknown',
-        fat: productData.nutriments?.fat_100g || 'Unknown',
+      const nutrientsPer100g = {
+        calories: productData.nutriments?.energy || 0,
+        protein: productData.nutriments?.proteins_100g || 0,
+        carbohydrates: productData.nutriments?.carbohydrates_100g || 0,
+        fat: productData.nutriments?.fat_100g || 0,
       };
+
+      const multiplier = weightInGrams / 100;
 
       setFormData(prevFormData => ({
         ...prevFormData,
-        calories: nutriments.calories,
-        protein: nutriments.protein,
-        carbohydrates: nutriments.carbohydrates,
-        fat: nutriments.fat,
+        calories: (nutrientsPer100g.calories * multiplier).toFixed(2),
+        protein: (nutrientsPer100g.protein * multiplier).toFixed(2),
+        carbohydrates: (nutrientsPer100g.carbohydrates * multiplier).toFixed(2),
+        fat: (nutrientsPer100g.fat * multiplier).toFixed(2),
       }));
 
     } catch (error) {
@@ -104,19 +110,30 @@ const AddProductForm = ({mealId, dayId}) => {
     fetchProducts(newValue);
   };
 
-
   const handleSelectChange = async (selectedOption: ProductOption | null) => {
     if (selectedOption) {
       setFormData(prevFormData => ({
         ...prevFormData,
         name: selectedOption.label,
       }));
-      await fetchProductNutrients(selectedOption.value);
+      await fetchProductNutrients(selectedOption.value, parseFloat(formData.weightInGrams));
     }
   };
 
   return (
       <form onSubmit={handleSubmit}>
+        <div>
+          <label>
+            Weight (in grams):
+            <input
+                type="number"
+                name="weightInGrams"
+                value={formData.weightInGrams}
+                onChange={handleChange}
+                required
+            />
+          </label>
+        </div>
         <div>
           <label>
             Product Name:
@@ -128,18 +145,6 @@ const AddProductForm = ({mealId, dayId}) => {
                 noOptionsMessage={() => 'No results found'}
                 value={options.find(option => option.label === formData.name) || null}
                 onChange={handleSelectChange}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Weight (in grams):
-            <input
-                type="number"
-                name="weightInGrams"
-                value={formData.weightInGrams}
-                onChange={handleChange}
-                required
             />
           </label>
         </div>
