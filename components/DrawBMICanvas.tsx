@@ -1,24 +1,24 @@
 import React, { useEffect, useRef } from "react";
 
-interface DrawBMICanvasProps {
+interface Props {
   bmi: number | null;
   currentAngle: number;
   setCurrentAngle: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const DrawBMICanvas: React.FC<DrawBMICanvasProps> = ({
+export default function DrawBMICanvas({
   bmi,
   currentAngle,
   setCurrentAngle,
-}) => {
+}: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-
+  
   const drawColoredDiagram = (ctx: CanvasRenderingContext2D) => {
     const centerX = 200;
     const centerY = 200;
     const outerRadius = 158;
     const innerRadius = 110;
-
+    
     const ranges = [
       { color: "#FF5722", start: 0, end: 10 },
       { color: "#FF9800", start: 10, end: 16 },
@@ -30,17 +30,17 @@ const DrawBMICanvas: React.FC<DrawBMICanvasProps> = ({
       { color: "#D20000", start: 35, end: 40 },
       { color: "#900000", start: 40, end: 50 },
     ];
-
+    
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     const anglePerBmi = Math.PI / 50;
-
+    
     ctx.lineJoin = "round";
     ctx.lineCap = "round";
-
+    
     ranges.forEach((range) => {
       const startAngle = anglePerBmi * range.start - Math.PI;
       const endAngle = anglePerBmi * range.end - Math.PI;
-
+      
       ctx.beginPath();
       ctx.arc(centerX, centerY, outerRadius, startAngle, endAngle, false);
       ctx.arc(centerX, centerY, innerRadius, endAngle, startAngle, true);
@@ -48,13 +48,13 @@ const DrawBMICanvas: React.FC<DrawBMICanvasProps> = ({
       ctx.fillStyle = range.color;
       ctx.fill();
     });
-
+    
     ctx.beginPath();
     ctx.arc(centerX, centerY, innerRadius, 0, Math.PI, true);
     ctx.fillStyle = "#FFFFFF";
     ctx.fill();
   };
-
+  
   const drawArrowWithAnimation = (
     ctx: CanvasRenderingContext2D,
     angle: number
@@ -63,14 +63,14 @@ const DrawBMICanvas: React.FC<DrawBMICanvasProps> = ({
     const centerY = 200;
     const arrowLength = 145; // Skrócona długość strzałki, tak aby nachodziła na kolorowe pola
     const arrowHeadLength = 20;
-
+    
     const startX = centerX;
     const startY = centerY;
-
+    
     // Końcowy punkt strzałki na zewnętrznej krawędzi
     const endX = startX + arrowLength * Math.cos(angle);
     const endY = startY + arrowLength * Math.sin(angle);
-
+    
     // Rysowanie grotów strzałki (odwrócone o 180 stopni)
     const arrowAngle = Math.PI / 8;
     const arrowHeadLeftX =
@@ -81,7 +81,7 @@ const DrawBMICanvas: React.FC<DrawBMICanvasProps> = ({
       endX + arrowHeadLength * Math.cos(angle + arrowAngle);
     const arrowHeadRightY =
       endY + arrowHeadLength * Math.sin(angle + arrowAngle);
-
+    
     ctx.beginPath();
     ctx.moveTo(startX, startY); // Zaczynamy w środku diagramu
     ctx.lineTo(endX, endY); // Rysujemy trzon strzałki
@@ -92,7 +92,7 @@ const DrawBMICanvas: React.FC<DrawBMICanvasProps> = ({
     ctx.fillStyle = "#666";
     ctx.fill();
   };
-
+  
   const animateArrow = (
     ctx: CanvasRenderingContext2D,
     startAngle: number,
@@ -100,10 +100,10 @@ const DrawBMICanvas: React.FC<DrawBMICanvasProps> = ({
   ) => {
     const step = (targetAngle - startAngle) / 50;
     let current = startAngle;
-
+    
     const interval = setInterval(() => {
       current += step;
-      if (
+      if(
         (step > 0 && current >= targetAngle) ||
         (step < 0 && current <= targetAngle)
       ) {
@@ -116,14 +116,14 @@ const DrawBMICanvas: React.FC<DrawBMICanvasProps> = ({
       setCurrentAngle(current);
     }, 20);
   };
-
+  
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (canvas) {
+    if(canvas) {
       const ctx = canvas.getContext("2d");
-      if (ctx) {
+      if(ctx) {
         drawColoredDiagram(ctx);
-        if (bmi !== null) {
+        if(bmi !== null) {
           const anglePerBmi = Math.PI / 50;
           const targetAngle =
             anglePerBmi * Math.min(50, Math.max(0, bmi)) - Math.PI;
@@ -132,15 +132,13 @@ const DrawBMICanvas: React.FC<DrawBMICanvasProps> = ({
       }
     }
   }, [bmi]);
-
+  
   return (
     <div style={{ textAlign: "center" }}>
-      <canvas ref={canvasRef} className="bmi-chart" width="400" height="200" />
+      <canvas ref={canvasRef} className="bmi-chart" width="400" height="200"/>
       {/* <p style={{ marginTop: "20px", fontSize: "18px" }}>
         Kategoria BMI: {getBMICategory()}
       </p> */}
     </div>
   );
 };
-
-export default DrawBMICanvas;

@@ -1,35 +1,36 @@
 import { create } from "zustand";
 
-
-type Product = {
+interface Product {
   id: number;
   name: string;
-  weightInGrans: number;
+  weightInGrams: number;
   calories: string;
   protein: string;
   carbohydrates: string;
   fat: string;
 }
 
-type Meal = {
+export interface Meal {
   id: number,
   name: string,
   products: Product[];
 }
 
-type Day = {
+export interface Day {
   id: number,
   name: string,
   meals: Meal[]
 }
 
-type CaloriesState = {
+interface CaloriesState {
   days: Day[];
-  addProductToMeal: (dayId: number, mealId: number, product: Product) => void;
-  deleteProductFromMeal: (dayId: number, mealId: number, product: Product) => void;
   
+  addProductToMeal(dayId: Day["id"], mealId: Meal["id"], product: Product): void;
+  
+  deleteProductFromMeal(dayId: Day["id"], mealId: Meal["id"], productId: Product["id"]): void;
 }
-export const useCaloriesStore = create((set) => ({
+
+export const useCaloriesStore = create<CaloriesState>(set => ({
   days: [
     {
       id: 1,
@@ -108,42 +109,42 @@ export const useCaloriesStore = create((set) => ({
         { id: 5, name: "Dinner ", products: [] },
       ],
     },
-  ],
-  addProductToMeal: (dayId, mealId, product) =>
-    set((state) => ({
-      days: state.days.map((day) => (
-        day.id === dayId ? {
-            ...day,
-            meals: day.meals.map((meal) => (
-              meal.id === mealId ? {
-                  ...meal,
-                  products: [...meal.products, product],
-                }
-                : meal
-            
-            )),
-          }
-          : day
-      )),
-    })),
+  ] satisfies Day[],
   
-  deleteProductFromMeal: (dayId, mealId, productId) =>
+  addProductToMeal(dayId, mealId, product) {
     set((state) => ({
-      days: state.days.map((day) => (
-        day.id === dayId ? {
+      days: state.days.map(function(day) {
+        return day.id === dayId
+          ? {
             ...day,
-            meals: day.meals.map((meal) => (
-              meal.id === mealId ? {
+            meals: day.meals.map(function(meal) {
+              return meal.id === mealId
+                ? { ...meal, products: [...meal.products, product], }
+                : meal;
+            }),
+          }
+          : day;
+      }),
+    }));
+  },
+  
+  deleteProductFromMeal(dayId, mealId, productId) {
+    set((state) => ({
+      days: state.days.map(function(day) {
+        return day.id === dayId
+          ? {
+            ...day,
+            meals: day.meals.map(function(meal) {
+              return meal.id === mealId
+                ? {
                   ...meal,
                   products: meal.products.filter((product) => product.id !== productId),
                 }
-                : meal
-            
-            )),
+                : meal;
+            }),
           }
-          : day
-      )),
-    })),
-  
-  
+          : day;
+      }),
+    }));
+  }
 }));

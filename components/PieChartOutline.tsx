@@ -1,7 +1,7 @@
 import React from "react";
-import "../styles/PieChartOutline.css";
+import "@/styles/PieChartOutline.css";
 
-interface PieChartOutlineProps {
+interface Props {
   percentage: number; // Procentowy zakres od 0 do 100
   size: number; // Rozmiar kontenera
   value: number; // Wartość wyświetlana w centralnym okręgu (kalorie lub ml)
@@ -9,12 +9,12 @@ interface PieChartOutlineProps {
   remainingValue: number; // Pozostała wartość do osiągnięcia celu
 }
 
-const PieChartComponent: React.FC<PieChartOutlineProps> = ({ percentage, size, value, unit, remainingValue }) => {
+export default function PieChartComponent({ percentage, size, value, unit, remainingValue }: Props) {
   const radius = size / 2; // Średnica
   const innerCircleRadius = radius - 8; // Mniejsze kolo z marginesem 8px
-
+  
   return (
-    <div style={{ width: `${size}px`, height: `${size}px`, position: 'relative' }}>
+    <div style={{ width: `${size}px`, height: `${size}px`, position: "relative" }}>
       {/* Główne koło z wypełnieniem */}
       <div
         className="pie"
@@ -57,5 +57,3 @@ const PieChartComponent: React.FC<PieChartOutlineProps> = ({ percentage, size, v
     </div>
   );
 };
-
-export default PieChartComponent;

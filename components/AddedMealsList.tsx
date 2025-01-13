@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/AddedMealsList.css"
+import "@/styles/AddedMealsList.css";
 
 interface Meal {
   name: string;
@@ -8,11 +8,11 @@ interface Meal {
   favorite: boolean;
 }
 
-interface AddedMealsListProps {
+interface Props {
   meals: Meal[]; // Lista posiłków
 }
 
-const AddedMealsList: React.FC<AddedMealsListProps> = ({ meals }) => {
+export default function AddedMealsList({ meals }: Props) {
   return (
     <div className="added-meals-list">
       <h3>Dodane posiłki</h3>
@@ -23,11 +23,11 @@ const AddedMealsList: React.FC<AddedMealsListProps> = ({ meals }) => {
           {meals.map((meal, index) => (
             <li key={index} className="meal-item">
               <div className="meal-header">
-                <strong>{meal.name}</strong> 
+                <strong>{meal.name}</strong>
                 {meal.favorite && <span className="favorite-badge">★ Ulubiony</span>}
               </div>
               <div>
-                <span>Kalorie: {meal.calories} kcal</span> | 
+                <span>Kalorie: {meal.calories} kcal</span> |
                 <span> Kategoria: {meal.category || "Brak"}</span>
               </div>
             </li>
@@ -37,5 +37,3 @@ const AddedMealsList: React.FC<AddedMealsListProps> = ({ meals }) => {
     </div>
   );
 };
-
-export default AddedMealsList;

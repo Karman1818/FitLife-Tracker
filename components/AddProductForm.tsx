@@ -1,6 +1,11 @@
 import React, { useState } from "react";
+import { Product } from "@/lib/types";
 
-const AddProductForm = ({ onAddProduct }) => {
+interface Props {
+  onAddProduct: (product: Omit<Product, "id">) => void;
+}
+
+export default function AddProductForm({ onAddProduct }: Props) {
   const [formData, setFormData] = useState({
     name: "",
     calories: "",
@@ -8,23 +13,23 @@ const AddProductForm = ({ onAddProduct }) => {
     category: "",
     favorite: false,
   });
-
-  const handleChange = (e) => {
+  
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
       [name]: type === "checkbox" ? checked : value,
     });
-  };
-
-  const handleSubmit = (e) => {
+  }
+  
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-
-    if (!formData.name || (!formData.calories && !formData.water)) {
+    
+    if(!formData.name || (!formData.calories && !formData.water)) {
       alert("Wypełnij wymagane pola!");
       return;
     }
-
+    
     onAddProduct({
       name: formData.name,
       calories: parseFloat(formData.calories) || 0,
@@ -32,7 +37,7 @@ const AddProductForm = ({ onAddProduct }) => {
       category: formData.category || "Brak",
       favorite: formData.favorite,
     });
-
+    
     // Reset formularza
     setFormData({
       name: "",
@@ -41,8 +46,8 @@ const AddProductForm = ({ onAddProduct }) => {
       category: "",
       favorite: false,
     });
-  };
-
+  }
+  
   return (
     <form onSubmit={handleSubmit}>
       <div>
@@ -105,5 +110,3 @@ const AddProductForm = ({ onAddProduct }) => {
     </form>
   );
 };
-
-export default AddProductForm;
