@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "../pages/Home";
 import BMI from "../pages/BMI";
 import Profile from "../pages/Profile";
-import Meals from "../pages/Meals";
+import Calories from "../pages/Calories";
 import { Link } from "../constants/links";
 
 const router = createBrowserRouter([
@@ -15,8 +15,8 @@ const router = createBrowserRouter([
     element: <BMI />,
   },
   {
-    path: Link.MEALS,
-    element: <Meals />,
+    path: Link.CALORIES,
+    element: <Calories />,
   },
   {
     path: Link.PROFILE,

@@ -1,6 +1,6 @@
 export enum Link {
-  DASHBOARD = "/dashboard",
+  DASHBOARD = "/",
+  CALORIES = "/calories",
   BMI = "/bmi",
-  MEALS = "/meals",
   PROFILE = "/profile/:userId"
 }

@@ -123,7 +123,7 @@ const BMIChart = () => {
 
   return (
     <div>
-      {isShakeCompleted && <Video />} {/* Pokazuje komponent Video po zakończeniu animacji */}
+      {isShakeCompleted && <Video />}
 
       <div
         className={`bmi-container ${isExtremeBMI(bmi) ? "extreme-bmi" : ""}`}
