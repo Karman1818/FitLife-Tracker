@@ -34,7 +34,7 @@ export default function Page() {
   
   return (
     <div>
-      <div className="goals-container">
+      <div className="flex">
         <GoalCard
           title="Spożyte Kalorie"
           percentage={caloriePercentage}
