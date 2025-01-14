@@ -15,7 +15,7 @@ export default function Page() {
   
   const caloriePercentage = Math.min(
     (consumedCalories / goalCalories) * 100,
-    100
+    100,
   );
   const waterPercentage = Math.min((consumedWater / goalWater) * 100, 100);
   
@@ -34,33 +34,29 @@ export default function Page() {
   
   return (
     <div>
-      <div className="home-container">
-        <h1>Strona Główna</h1>
-        
-        <div className="goals-container">
-          <GoalCard
-            title="Spożyte Kalorie"
-            percentage={caloriePercentage}
-            goal={goalCalories}
-            setGoal={setGoalCalories}
-            unit="kcal"
-            value={consumedCalories}
-            remainingValue={remainingCalories} // Pozostała liczba kalorii
-          />
-          <GoalCard
-            title="Spożyta Woda"
-            percentage={waterPercentage}
-            goal={goalWater}
-            setGoal={setGoalWater}
-            unit="ml"
-            value={consumedWater}
-            remainingValue={remainingWater} // Pozostała liczba ml wody
-          />
-        </div>
-        
-        <AddProductForm onAddProduct={handleAddProduct}/>
-        <AddedMealsList meals={meals as any}/>
+      <div className="goals-container">
+        <GoalCard
+          title="Spożyte Kalorie"
+          percentage={caloriePercentage}
+          goal={goalCalories}
+          setGoal={setGoalCalories}
+          unit="kcal"
+          value={consumedCalories}
+          remainingValue={remainingCalories} // Pozostała liczba kalorii
+        />
+        <GoalCard
+          title="Spożyta Woda"
+          percentage={waterPercentage}
+          goal={goalWater}
+          setGoal={setGoalWater}
+          unit="ml"
+          value={consumedWater}
+          remainingValue={remainingWater} // Pozostała liczba ml wody
+        />
       </div>
+      
+      <AddProductForm onAddProduct={handleAddProduct}/>
+      <AddedMealsList meals={meals as any}/>
     </div>
   );
 };
