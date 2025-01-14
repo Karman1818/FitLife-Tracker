@@ -1,9 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import HeaderNav from "@/components/HeaderNav";
-import FooterNav from "@/components/FooterNav";
-import "@/styles/BMI.css";
 import DrawBMICanvas from "@/components/DrawBMICanvas";
 import Video from "@/components/Video";
 
@@ -185,9 +182,6 @@ export default function Page() {
           />
         </div>
       </div>
-      
-      <HeaderNav/>
-      <FooterNav/>
     </div>
   );
 };

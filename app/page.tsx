@@ -1,11 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import "@/styles/Home.css";
 import AddProductForm from "@/components/AddProductForm";
 import AddedMealsList from "@/components/AddedMealsList";
-import HeaderNav from "@/components/HeaderNav";
-import FooterNav from "@/components/FooterNav";
 import GoalCard from "@/components/GoalCard";
 
 // TODO: Types
@@ -64,8 +61,6 @@ export default function Page() {
         <AddProductForm onAddProduct={handleAddProduct}/>
         <AddedMealsList meals={meals as any}/>
       </div>
-      <HeaderNav/>
-      <FooterNav/>
     </div>
   );
 };

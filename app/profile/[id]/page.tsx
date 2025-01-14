@@ -1,7 +1,3 @@
-import FooterNav from "@/components/FooterNav";
-import HeaderNav from "@/components/HeaderNav";
-import "@/styles/Profile.css";
-
 interface Props {
   params: {
     id: string;
@@ -33,8 +29,6 @@ export default function Page({ params: { id } }: Props) {
           </ul>
         </div>
       </div>
-      <HeaderNav/>
-      <FooterNav/>
     </div>
   );
 };
