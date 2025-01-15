@@ -22,14 +22,14 @@ export default function({
   const id = "goal-card-" + title.toLowerCase().replace(/[ _]/g, "-");
   
   return (
-    <div className="bg-white/10 border-2 border-white/5 shadow-lg m-1 p-1 rounded-lg space-y-1 backdrop-blur-md">
+    <div className="bg-white/10 border-2 border-white/5 shadow-lg m-1 p-1 rounded-lg space-y-1 backdrop-blur-md flex flex-col items-center">
       <h3 className="text-md font-semibold">{title}</h3>
       <PieChartComponent
         percentage={percentage}
         size={200}
         value={value}
         unit={unit}
-        remainingValue={remainingValue} // Przekazanie pozostałej wartości
+        remainingValue={remainingValue}
       />
       <label htmlFor={id} className="text-sm mr-1">{unit} goal:</label>
       <input
