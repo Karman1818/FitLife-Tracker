@@ -14,7 +14,7 @@ interface Props {
 
 export default function AddedMealsList({ meals }: Props) {
   return (
-    <div className="added-meals-list">
+    <div className="bg-white/10 border-2 border-white/5 shadow-lg m-1 p-1 rounded-lg space-y-1 backdrop-blur-md mt-2">
       <h3>Dodane posiłki</h3>
       {meals.length === 0 ? (
         <p>Nie dodano jeszcze żadnych posiłków.</p>
