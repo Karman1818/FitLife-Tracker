@@ -1,20 +1,14 @@
-"use client";
-
-import RecipesComponent from "@/components/RecipesComponent";
-import "@/styles/Profile.css";
-
-export default function Page() {
+export default function RecipesForMeals() {
+  const { mealData } = { mealData: [] as Record<string, string>[] };
+  
   return (
-    <div>
-      <h1>Meals Recipes</h1>
-      
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "170px" }}>
-        <RecipesComponent/>
-        <RecipesComponent/>
-        <RecipesComponent/>
-      </div>
-      
-      <button onClick={() => window.location.reload()}>reload</button>
-    </div>
+    <>
+      {mealData.map((data) => (
+        <div key={data.idMeal} style={{ textAlign: "center" }}>
+          <h1>{data.strMeal}</h1>
+          <p style={{ fontSize: "14px" }}>{data.strInstructions}</p>
+        </div>
+      ))}
+    </>
   );
 };
