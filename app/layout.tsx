@@ -20,13 +20,13 @@ export default async function Layout({ children }: Props) {
   
   return (
     <html lang="en">
-    <body className={dev ? "debug-screens" : ""}>
+    <body className={`${dev ? "debug-screens" : ""} selection:bg-white/10 text-white/75`}>
     <SessionProvider session={session}>
+      <Nav/>
       <main
-        className="h-full w-full flex flex-col sm:flex-row selection:bg-white/10 text-white/75 bg-[url('/Elarun.webp')] bg-cover bg-center bg-origin-border overflow-x-hidden"
+        className="h-full w-full bg-[url('/Elarun.webp')] bg-cover bg-center bg-origin-border overflow-x-hidden pt-[3.25rem]"
         style={SFProRounded.style}
       >
-        <Nav/>
         {children}
       </main>
     </SessionProvider>
