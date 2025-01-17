@@ -3,19 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev:next": "next dev --turbopack",
-    "dev:wrangler": "cf-bindings-proxy --d1",
-    "dev": "concurrently \"bun run dev:wrangler\" \"bun run dev:next\"",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "pages:build": "npx @cloudflare/next-on-pages",
-    "preview": "npm run pages:build && wrangler pages dev",
-    "deploy": "npm run pages:build && wrangler pages deploy",
     "tsc": "tsc --noEmit"
   },
   "dependencies": {
-    "@auth/d1-adapter": "^1.7.4",
     "@auth/prisma-adapter": "^2.7.4",
     "@tanstack/react-form": "^0.41.2",
     "next": "15.1.4",
@@ -28,20 +22,15 @@
     "zustand": "^5.0.3"
   },
   "devDependencies": {
-    "@cloudflare/next-on-pages": "^1.13.7",
     "@eslint/eslintrc": "^3.2.0",
     "@types/node": "^20.17.14",
     "@types/react": "^19.0.7",
     "@types/react-dom": "^19.0.3",
-    "cf-bindings-proxy": "^0.7.2",
-    "concurrently": "^9.1.2",
     "eslint": "^9.18.0",
     "eslint-config-next": "^15.1.4",
-    "eslint-plugin-next-on-pages": "^1.13.7",
     "postcss": "^8.5.1",
     "tailwindcss": "^3.4.17",
     "tailwindcss-debug-screens": "^2.2.1",
-    "typescript": "^5.7.3",
-    "wrangler": "^3.103.1"
+    "typescript": "^5.7.3"
   }
 }
