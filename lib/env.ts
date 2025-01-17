@@ -1,8 +1,7 @@
 import { object, string } from "zod";
 
 const env = object({
-  db: string(),
-  email_from: string(),
+  EMAIL_FROM: string(),
 }).parse(process.env);
 
 export default env;

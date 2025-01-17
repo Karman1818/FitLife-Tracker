@@ -3,6 +3,9 @@ interface PageProps {
     id: string;
   }>
 }
+
+export const runtime = "edge";
+
 export default async function Page(props: PageProps) {
   const id = (await props.params).id;
   

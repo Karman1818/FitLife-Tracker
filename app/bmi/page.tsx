@@ -4,6 +4,8 @@ import { useState } from "react";
 import DrawBMICanvas from "@/components/DrawBMICanvas";
 import Video from "@/components/Video";
 
+export const runtime = "edge";
+
 export default function Page() {
   const [bmi, setBmi] = useState<number | null>(null);
   const [currentAngle, setCurrentAngle] = useState<number>(-Math.PI);

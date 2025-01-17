@@ -41,7 +41,7 @@ jobs:
         run: bun lint
 
   build:
-    name: test build (nextjs)
+    name: test build (@cloudflare/next-on-pages)
     needs: [ tsc, es-lint ]
     runs-on: ubuntu-latest
     steps:
@@ -57,4 +57,4 @@ jobs:
         run: bun install
 
       - name: Build Next.js
-        run: bun run build --no-lint -d
+        run: bunx @cloudflare/next-on-pages

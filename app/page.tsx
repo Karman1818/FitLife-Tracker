@@ -5,6 +5,8 @@ import AddProductForm from "@/components/AddProductForm";
 import AddedMealsList from "@/components/AddedMealsList";
 import GoalCard from "@/components/GoalCard";
 
+export const runtime = "edge";
+
 // TODO: Types
 export default function Page() {
   const [goalCalories, setGoalCalories] = useState(2000);
