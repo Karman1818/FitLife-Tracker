@@ -41,7 +41,7 @@ jobs:
         run: bun lint
 
   build:
-    name: test build (@cloudflare/next-on-pages)
+    name: test build (next build)
     needs: [ tsc, es-lint ]
     runs-on: ubuntu-latest
     steps:
