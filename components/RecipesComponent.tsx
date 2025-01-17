@@ -10,7 +10,7 @@ interface Meal {
   strMealThumb: string;
 }
 
-export const RecipesComponent = () => {
+export default function RecipesComponent() {
   const router = useRouter();
   
   const [mealData, setMealData] = useState<Meal[]>([]);
@@ -48,6 +48,7 @@ export const RecipesComponent = () => {
                 src={data.strMealThumb}
                 alt={data.strMeal}
                 width={400}
+                height={400}
               />
               <p style={{ fontSize: "14px" }}>{data.strMeal}</p>
             </div>

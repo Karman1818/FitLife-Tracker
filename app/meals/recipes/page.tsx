@@ -1,4 +1,6 @@
-import { RecipesComponent } from "@/components/RecipesComponent";
+"use client";
+
+import RecipesComponent from "@/components/RecipesComponent";
 import "@/styles/Profile.css";
 
 export const runtime = "edge";
