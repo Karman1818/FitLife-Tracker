@@ -3,8 +3,6 @@
 import RecipesComponent from "@/components/RecipesComponent";
 import "@/styles/Profile.css";
 
-export const runtime = "edge";
-
 export default function Page() {
   return (
     <div>
