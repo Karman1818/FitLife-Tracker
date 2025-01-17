@@ -3,7 +3,7 @@ import { GrHomeRounded } from "react-icons/gr";
 import { GiMeal } from "react-icons/gi";
 import { FaWeight } from "react-icons/fa";
 
-export default function() {
+export default function Nav() {
   return (
     <nav
       className="flex flex-row sm:flex-col max-sm:w-[calc(100%-0.5rem)] sm:h-[calc(100%-0.5rem)] z-50 py-2 sm:py-2 px-3 sm:px-1.5 m-1 bg-gradient-to-r sm:bg-gradient-to-b from-white/15 via-white/10 to-white/15 backdrop-blur-md rounded-md max-sm:space-x-3 sm:space-y-1 transition-all duration-300 max-sm:justify-between"

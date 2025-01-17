@@ -14,6 +14,7 @@ interface ProductOption {
   value: string;
 }
 
+// TODO: Rewrite
 export default function AddProductToMealForm({ mealId, dayId }: Props) {
   const [formData, setFormData] = useState({
     name: "",
@@ -58,7 +59,7 @@ export default function AddProductToMealForm({ mealId, dayId }: Props) {
   
   const [options, setOptions] = useState<ProductOption[]>([]);
   const [isLoadingProducts, setIsLoadingProducts] = useState(false);
-  const [isLoadingNutrients, setIsLoadingNutrients] = useState(false);
+  const [/*isLoadingNutrients*/, setIsLoadingNutrients] = useState(false);
   
   const fetchProductNutrients = async(productId: string, weightInGrams: number) => {
     const URL = `https://world.openfoodfacts.org/api/v0/product/${productId}.json`;
@@ -101,7 +102,7 @@ export default function AddProductToMealForm({ mealId, dayId }: Props) {
       setIsLoadingProducts(true);
       const response = await fetch(URL);
       const data = await response.json();
-      const products = data.products.map((product: any) => ({
+      const products = data.products.map((product: Record<string, string>) => ({
         label: product.product_name || "Unknown name",
         value: product.id || product.code,
       }));

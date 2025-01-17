@@ -8,10 +8,10 @@ import GoalCard from "@/components/GoalCard";
 // TODO: Types
 export default function Page() {
   const [goalCalories, setGoalCalories] = useState(2000);
-  const [consumedCalories, setConsumedCalories] = useState(0);
+  const [consumedCalories/*, setConsumedCalories*/] = useState(0);
   const [goalWater, setGoalWater] = useState(2500);
-  const [consumedWater, setConsumedWater] = useState(0);
-  const [meals, setMeals] = useState([] as unknown[]);
+  const [consumedWater/*, setConsumedWater*/] = useState(0);
+  const [meals/*, setMeals*/] = useState<Parameters<typeof AddedMealsList>[0]["meals"]>([]);
   
   const caloriePercentage = Math.min(
     (consumedCalories / goalCalories) * 100,
@@ -52,7 +52,7 @@ export default function Page() {
       </div>
       
       <AddProductForm/>
-      <AddedMealsList meals={meals as any}/>
+      <AddedMealsList meals={meals}/>
     </div>
   );
 };

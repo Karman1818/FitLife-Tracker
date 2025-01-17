@@ -10,7 +10,7 @@ interface Props {
   remainingValue: number;
 }
 
-export default function({
+export default function GoalCard({
   title,
   percentage,
   goal,

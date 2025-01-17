@@ -93,31 +93,31 @@ export default function DrawBMICanvas({
     ctx.fill();
   };
   
-  const animateArrow = (
-    ctx: CanvasRenderingContext2D,
-    startAngle: number,
-    targetAngle: number
-  ) => {
-    const step = (targetAngle - startAngle) / 50;
-    let current = startAngle;
-    
-    const interval = setInterval(() => {
-      current += step;
-      if(
-        (step > 0 && current >= targetAngle) ||
-        (step < 0 && current <= targetAngle)
-      ) {
-        current = targetAngle;
-        clearInterval(interval);
-      }
-      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-      drawColoredDiagram(ctx);
-      drawArrowWithAnimation(ctx, current);
-      setCurrentAngle(current);
-    }, 20);
-  };
-  
   useEffect(() => {
+    const animateArrow = (
+      ctx: CanvasRenderingContext2D,
+      startAngle: number,
+      targetAngle: number
+    ) => {
+      const step = (targetAngle - startAngle) / 50;
+      let current = startAngle;
+      
+      const interval = setInterval(() => {
+        current += step;
+        if(
+          (step > 0 && current >= targetAngle) ||
+          (step < 0 && current <= targetAngle)
+        ) {
+          current = targetAngle;
+          clearInterval(interval);
+        }
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        drawColoredDiagram(ctx);
+        drawArrowWithAnimation(ctx, current);
+        setCurrentAngle(current);
+      }, 20);
+    };
+    
     const canvas = canvasRef.current;
     if(canvas) {
       const ctx = canvas.getContext("2d");
@@ -131,7 +131,7 @@ export default function DrawBMICanvas({
         }
       }
     }
-  }, [bmi]);
+  }, [bmi, currentAngle, setCurrentAngle]);
   
   return (
     <div style={{ textAlign: "center" }}>

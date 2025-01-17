@@ -1,10 +1,10 @@
 import { FieldApi } from "@tanstack/react-form";
 
 interface Props {
-  field: FieldApi<any, any, any, any>;
+  field: FieldApi<any, any, any, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
-export default function({ field }: Props) {
+export default function FieldInfo({ field }: Props) {
   return (
     <>
       {field.state.meta.isTouched && field.state.meta.errors.length ? (

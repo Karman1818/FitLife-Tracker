@@ -9,12 +9,12 @@
     "lint": "next lint",
     "pages:build": "npx @cloudflare/next-on-pages",
     "preview": "npm run pages:build && wrangler pages dev",
-    "deploy": "npm run pages:build && wrangler pages deploy"
+    "deploy": "npm run pages:build && wrangler pages deploy",
+    "tsc": "tsc --noEmit"
   },
   "dependencies": {
     "@auth/d1-adapter": "^1.7.4",
     "@auth/prisma-adapter": "^2.7.4",
-    "@prisma/client": "^6.2.1",
     "@tanstack/react-form": "^0.41.2",
     "next": "15.1.4",
     "next-auth": "^5.0.0-beta.25",
@@ -35,7 +35,6 @@
     "eslint-config-next": "^15.1.4",
     "eslint-plugin-next-on-pages": "^1.13.7",
     "postcss": "^8.5.1",
-    "prisma": "^6.2.1",
     "tailwindcss": "^3.4.17",
     "tailwindcss-debug-screens": "^2.2.1",
     "typescript": "^5.7.3"

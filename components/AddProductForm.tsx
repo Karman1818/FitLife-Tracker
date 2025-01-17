@@ -3,7 +3,7 @@ import { useForm } from "@tanstack/react-form";
 import { z, object, string, number } from "zod";
 import FieldInfo from "@/components/FieldInfo";
 
-export default function() {
+export default function AddProductForm() {
   const form = useForm({
     defaultValues: {
       name: "",
@@ -36,9 +36,8 @@ export default function() {
     >
       <div
         className="flex flex-col bg-white/10 border-2 border-white/5 shadow-lg m-1 p-1 rounded-lg space-y-1 backdrop-blur-md">
-        <form.Field
-          name="name"
-          children={(field) => (
+        <form.Field name="name">
+          {(field) => (
             <div className="flex flex-col">
               <label htmlFor={field.name}>Name</label>
               <input
@@ -52,10 +51,9 @@ export default function() {
               <FieldInfo field={field}/>
             </div>
           )}
-        />
-        <form.Field
-          name="calories"
-          children={(field) => (
+        </form.Field>
+        <form.Field name="calories">
+          {(field) => (
             <div className="flex flex-col">
               <label htmlFor={field.name}>Calories (kcal)</label>
               <input
@@ -69,10 +67,9 @@ export default function() {
               <FieldInfo field={field}/>
             </div>
           )}
-        />
-        <form.Field
-          name="water"
-          children={(field) => (
+        </form.Field>
+        <form.Field name="water">
+          {(field) => (
             <div className="flex flex-col">
               <label htmlFor={field.name}>Water (ml)</label>
               <input
@@ -86,10 +83,9 @@ export default function() {
               <FieldInfo field={field}/>
             </div>
           )}
-        />
-        <form.Field
-          name="category"
-          children={(field) => (
+        </form.Field>
+        <form.Field name="category">
+          {(field) => (
             <div className="flex flex-col">
               <label htmlFor={field.name}>Category</label>
               <input
@@ -103,10 +99,9 @@ export default function() {
               <FieldInfo field={field}/>
             </div>
           )}
-        />
-        <form.Field
-          name="favorite"
-          children={(field) => (
+        </form.Field>
+        <form.Field name="favorite">
+          {(field) => (
             <div className="flex flex-col">
               <label htmlFor={field.name} className="cursor-pointer inline-block self-start">Favorite</label>
               <input
@@ -119,7 +114,7 @@ export default function() {
               <FieldInfo field={field}/>
             </div>
           )}
-        />
+        </form.Field>
         <div className="flex justify-center">
           <button
             type="submit"
