@@ -1,10 +1,11 @@
-interface Props {
-  params: {
+interface PageProps {
+  params: Promise<{
     id: string;
-  };
+  }>
 }
-
-export default function Page({ params: { id } }: Props) {
+export default async function Page(props: PageProps) {
+  const id = (await props.params).id;
+  
   return (
     <div>
       <div className="profile-container">

@@ -41,7 +41,7 @@ jobs:
         run: bun lint
 
   build:
-    name: test build (vite)
+    name: test build (nextjs)
     needs: [ tsc, es-lint ]
     runs-on: ubuntu-latest
     steps:
@@ -56,5 +56,5 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Build Vite
-        run: bun run build
+      - name: Build Next.js
+        run: bun run build --no-lint -d
