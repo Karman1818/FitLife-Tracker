@@ -15,4 +15,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     colorScheme: "dark",
     brandColor: "#9900ff",
   },
+  session: {
+    strategy: "database",
+  },
 });
