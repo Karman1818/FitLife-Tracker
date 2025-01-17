@@ -30,10 +30,12 @@ export default function RecipesComponent() {
       setIsLoading(false);
     });
   }, []);
-  
-  const goToRecipes = () => {
+
+  const goToRecipes = (mealData: Meal[]) => {
+    localStorage.setItem("mealData", JSON.stringify(mealData)); // Zapisujemy dane w localStorage
     router.push("/meals/recipes");
   };
+
   
   return (
     <>
@@ -42,7 +44,7 @@ export default function RecipesComponent() {
       ) : (
         <>
           {mealData.map((data) => (
-            <div onClick={goToRecipes} key={data.idMeal} style={{ textAlign: "center" }}>
+            <div onClick={() => goToRecipes(mealData)} key={data.idMeal} style={{ textAlign: "center" }}>
               <Image
                 style={{ borderRadius: "4px" }}
                 src={data.strMealThumb}
