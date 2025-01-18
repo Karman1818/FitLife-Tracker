@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddProductForm from "@/components/AddProductForm";
 import AddedMealsList from "@/components/AddedMealsList";
 import GoalCard from "@/components/GoalCard";
@@ -12,7 +12,20 @@ export default function Page() {
   const [goalWater, setGoalWater] = useState(2500);
   const [consumedWater/*, setConsumedWater*/] = useState(0);
   const [meals/*, setMeals*/] = useState<Parameters<typeof AddedMealsList>[0]["meals"]>([]);
-  
+  const [weight, setWeight] = useState<string>("");
+  const [height, setHeight] = useState<string>("");
+
+  // Odczytanie wagi i wzrostu z localStorage
+  useEffect(() => {
+    const storedWeight = localStorage.getItem('weight');
+    const storedHeight = localStorage.getItem('height');
+
+    if (storedWeight && storedHeight) {
+      setWeight(storedWeight);
+      setHeight(storedHeight);
+    }
+  }, []);
+
   const caloriePercentage = Math.min(
     (consumedCalories / goalCalories) * 100,
     100,
@@ -21,12 +34,6 @@ export default function Page() {
   
   const remainingCalories = goalCalories - consumedCalories;
   const remainingWater = goalWater - consumedWater;
-  
-  // const handleAddProduct = (product: any) => {
-  //   setConsumedCalories((prev) => prev + product.calories);
-  //   setConsumedWater((prev) => prev + product.water);
-  //   setMeals((prevMeals) => [...prevMeals, product]);
-  // };
   
   return (
     <div>
@@ -51,8 +58,16 @@ export default function Page() {
         />
       </div>
       
-      <AddProductForm/>
-      <AddedMealsList meals={meals}/>
+      <div className="mt-8">
+        <h3 className="text-xl text-white mb-4">Twoje dane:</h3>
+        <div className="bg-gray-700 p-4 rounded-lg text-white">
+          <p><strong>Waga:</strong> {weight ? `${weight} kg` : 'Brak danych'}</p>
+          <p><strong>Wzrost:</strong> {height ? `${height} cm` : 'Brak danych'}</p>
+        </div>
+      </div>
+      
+      <AddProductForm />
+      <AddedMealsList meals={meals} />
     </div>
   );
-};
+}
