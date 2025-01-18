@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "@tanstack/react-form";
-import { z, object, string, number } from "zod";
+import { object, string, number, boolean } from "zod";
 import FieldInfo from "@/components/FieldInfo";
 
 export default function AddProductForm() {
@@ -21,7 +21,7 @@ export default function AddProductForm() {
         calories: number(),
         water: number(),
         category: string().min(3),
-        favorite: z.boolean(),
+        favorite: boolean(),
       }),
     },
   });

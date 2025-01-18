@@ -12,11 +12,10 @@ export default function Nav() {
   const session = useSession();
   
   function getInitials(user: Extract<typeof session, { status: "authenticated" }>["data"]["user"] | null) {
-    if(!user) return "?";
     let strings: string[] = ["?"];
-    if(user.name) {
+    if(user?.name) {
       strings = user.name.split(" ");
-    } else if(user.email) {
+    } else if(user?.email) {
       strings = user.email!.split("@")[0].split(/_-/g);
     }
     return strings.map(v => v[0]?.toUpperCase()).filter(Boolean).join("");
@@ -24,7 +23,7 @@ export default function Nav() {
   
   return (
     <nav
-      className="fixed top-0 flex flex-row w-[calc(100%-0.5rem)] z-50 py-2 px-3 m-1 bg-gradient-to-r from-white/15 via-white/10 to-white/15 backdrop-blur-md rounded-md space-x-3 transition-all duration-300 justify-between"
+      className="fixed top-0 flex flex-row w-[calc(100%-0.5rem)] z-50 py-2 px-3 m-1 bg-gradient-to-r from-white/15 via-white/10 to-white/15 backdrop-blur-md rounded-md space-x-3 transition-all duration-300"
     >
       <Link
         href="/"

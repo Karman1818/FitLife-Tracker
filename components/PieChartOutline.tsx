@@ -1,5 +1,4 @@
 import React from "react";
-import "@/styles/PieChartOutline.css";
 
 interface Props {
   percentage: number; // Procentowy zakres od 0 do 100

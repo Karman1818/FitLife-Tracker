@@ -24,7 +24,7 @@ export default async function Layout({ children }: Props) {
     <SessionProvider session={session}>
       <Nav/>
       <main
-        className="h-full w-full bg-[url('/Elarun.webp')] bg-cover bg-center bg-origin-border overflow-x-hidden pt-[3.25rem]"
+        className="h-full w-full bg-[url('/Elarun.webp')] bg-cover bg-center bg-origin-border overflow-x-hidden pt-[calc(3.25rem+1px)]"
         style={SFProRounded.style}
       >
         {children}

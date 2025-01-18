@@ -23,7 +23,7 @@ export default function Page() {
   return (
     <div>
       {Days.map((day) => (
-        <div key={day.id}>
+        <div key={day.id} className="bg-white/10 border-2 border-white/5 shadow-lg m-1 p-1 rounded-lg space-y-1 backdrop-blur-md">
           <h1>{day.name}</h1>
           {day.meals.map((meal) => (
             <div key={meal.id}>
