@@ -1,20 +1,22 @@
 "use client";
 
 import RecipesComponent from "@/components/RecipesComponent";
-import "@/styles/Profile.css";
+import Button from "@/components/averi-ui/button";
 
 export default function Page() {
   return (
-    <div>
-      <h1>Meals Recipes</h1>
+    <div className="p-1.5 space-y-1.5 bg-white/10 border-2 border-white/5 shadow-lg m-1 rounded-lg backdrop-blur-md m-1.5">
+      <h1 className="text-2xl text-center">Meals Recipes</h1>
       
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "170px" }}>
+      <div className="flex flex-col space-y-2 sm:flex-row sm:space-x-2">
         <RecipesComponent/>
         <RecipesComponent/>
         <RecipesComponent/>
       </div>
       
-      <button onClick={() => window.location.reload()}>reload</button>
+      <div className="w-full flex items-center justify-center">
+        <Button onClick={() => window.location.reload()}>Reload</Button>
+      </div>
     </div>
   );
 };

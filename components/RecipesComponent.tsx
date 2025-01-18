@@ -30,33 +30,31 @@ export default function RecipesComponent() {
       setIsLoading(false);
     });
   }, []);
-
+  
   const goToRecipes = (mealData: Meal[]) => {
     localStorage.setItem("mealData", JSON.stringify(mealData)); // Zapisujemy dane w localStorage
     router.push("/meals/recipes");
   };
-
+  
   
   return (
-    <>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <>
-          {mealData.map((data) => (
-            <div onClick={() => goToRecipes(mealData)} key={data.idMeal} style={{ textAlign: "center" }}>
-              <Image
-                style={{ borderRadius: "4px" }}
-                src={data.strMealThumb}
-                alt={data.strMeal}
-                width={400}
-                height={400}
-              />
-              <p style={{ fontSize: "14px" }}>{data.strMeal}</p>
-            </div>
-          ))}
-        </>
-      )}
-    </>
+    <div className="flex items-center justify-center">
+      {isLoading
+        ? <p className="text-center">Loading...</p>
+        : mealData.map((data) => (
+          <div className="text-center" key={data.idMeal}>
+            <Image
+              style={{ borderRadius: "4px" }}
+              src={data.strMealThumb}
+              alt={data.strMeal}
+              width={400}
+              height={400}
+              className="cursor-pointer"
+              onClick={() => goToRecipes(mealData)}
+            />
+            <p className="text-sm hover:underline inline-block">{data.strMeal}</p>
+          </div>
+        ))}
+    </div>
   );
 };
