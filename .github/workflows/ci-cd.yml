@@ -61,3 +61,7 @@ jobs:
 
       - name: Build Next.js
         run: bun run build --no-lint -d
+        with:
+          env:
+            - EMAIL_FROM=x
+            - DATABASE_URL=x
