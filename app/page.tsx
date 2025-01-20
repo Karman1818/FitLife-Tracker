@@ -1,17 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import AddProductForm from "@/components/AddProductForm";
 import AddedMealsList from "@/components/AddedMealsList";
-import GoalCard from "@/components/GoalCard";
-import { Meal } from "@/stores/calories";
+
 
 // TODO: Types
 export default function Page() {
-  const [goalCalories, setGoalCalories] = useState(2000);
-  const [consumedCalories/*, setConsumedCalories*/] = useState(0);
-  const [goalWater, setGoalWater] = useState(2500);
-  const [consumedWater/*, setConsumedWater*/] = useState(0);
   const [meals/*, setMeals*/] = useState<Parameters<typeof AddedMealsList>[0]["meals"]>([]);
   const [weight, setWeight] = useState<string>("");
   const [height, setHeight] = useState<string>("");
