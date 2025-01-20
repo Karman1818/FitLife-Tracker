@@ -14,7 +14,6 @@ interface ProductOption {
   value: string;
 }
 
-// TODO: Rewrite
 export default function AddProductToMealForm({ mealId, dayId }: Props) {
   const [formData, setFormData] = useState({
     name: "",

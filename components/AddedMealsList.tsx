@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import AddProductForm from "./AddProductForm";
 
 interface Meal {
   name: string;
@@ -12,27 +13,30 @@ interface Props {
 }
 
 export default function AddedMealsList({ meals }: Props) {
+  const [mealList, setMealList] = useState<Meal[]>(meals);
+
+  const handleAddMeal = (meal: Meal) => {
+    setMealList([...mealList, meal]);
+  };
+
   return (
-    <div className="bg-white/10 border-2 border-white/5 shadow-lg m-1 p-1 rounded-lg space-y-1 backdrop-blur-md mt-2">
-      <h3>Dodane posiłki</h3>
-      {meals.length === 0 ? (
-        <p>Nie dodano jeszcze żadnych posiłków.</p>
-      ) : (
-        <ul>
-          {meals.map((meal, index) => (
-            <li key={index} className="meal-item">
-              <div className="meal-header">
-                <strong>{meal.name}</strong>
-                {meal.favorite && <span className="favorite-badge">★ Ulubiony</span>}
-              </div>
-              <div>
-                <span>Kalorie: {meal.calories} kcal</span> |
-                <span> Kategoria: {meal.category || "Brak"}</span>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+    <>
+      <AddProductForm onAddMeal={handleAddMeal} />
+      <div className="bg-white/10 border-2 border-white/5 shadow-lg m-1 p-1 rounded-lg space-y-1 backdrop-blur-md mt-2">
+        <h3>Dodane posiłki</h3>
+        {mealList.length === 0 ? (
+          <p>Nie dodano jeszcze żadnych posiłków.</p>
+        ) : (
+          mealList.map((meal, index) => (
+            <div key={index}>
+              <p>{meal.name}</p>
+              <p>{meal.calories} kcal</p>
+              <p>{meal.category}</p>
+              <p>{meal.favorite ? "Favorite" : "Not Favorite"}</p>
+            </div>
+          ))
+        )}
+      </div>
+    </>
   );
-};
+}

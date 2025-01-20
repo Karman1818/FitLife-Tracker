@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import AddProductForm from "@/components/AddProductForm";
 import AddedMealsList from "@/components/AddedMealsList";
 import GoalCard from "@/components/GoalCard";
+import { Meal } from "@/stores/calories";
 
 // TODO: Types
 export default function Page() {
@@ -65,8 +66,7 @@ export default function Page() {
           <p><strong>Wzrost:</strong> {height ? `${height} cm` : 'Brak danych'}</p>
         </div>
       </div>
-      
-      <AddProductForm />
+    
       <AddedMealsList meals={meals} />
     </div>
   );

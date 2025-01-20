@@ -14,6 +14,7 @@ export interface Meal {
   id: number,
   name: string,
   products: Product[];
+  calories: number,
 }
 
 export interface Day {

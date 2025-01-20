@@ -3,8 +3,13 @@ import { useForm } from "@tanstack/react-form";
 import { object, string, number, boolean } from "zod";
 import FieldInfo from "@/components/FieldInfo";
 import Button from "@/components/averi-ui/button";
+import { Meal } from "@/stores/calories";
 
-export default function AddProductForm() {
+interface AddProductFormProps {
+  onAddMeal: (meal: Meal) => void;
+}
+
+export default function AddProductForm({ onAddMeal }: AddProductFormProps) {
   const form = useForm({
     defaultValues: {
       name: "",
@@ -14,7 +19,7 @@ export default function AddProductForm() {
       favorite: false,
     },
     async onSubmit({ value }) {
-      console.log(value);
+      onAddMeal({ ...value, id: Date.now(), products: [] }); // Call the onAddMeal prop with the form data
     },
     validators: {
       onChange: object({
@@ -26,17 +31,16 @@ export default function AddProductForm() {
       }),
     },
   });
-  
+
   return (
     <form
-      onSubmit={async(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
         e.stopPropagation();
         await form.handleSubmit();
       }}
     >
-      <div
-        className="flex flex-col bg-white/10 border-2 border-white/5 shadow-lg m-1 p-1 rounded-lg space-y-1 backdrop-blur-md">
+      <div className="flex flex-col bg-white/10 border-2 border-white/5 shadow-lg m-1 p-1 rounded-lg space-y-1 backdrop-blur-md">
         <form.Field name="name">
           {(field) => (
             <div className="flex flex-col">
@@ -45,11 +49,11 @@ export default function AddProductForm() {
                 id={field.name}
                 type="text"
                 value={field.state.value}
-                onChange={e => field.handleChange(e.target.value)}
+                onChange={(e) => field.handleChange(e.target.value)}
                 onBlur={field.handleBlur}
                 className="focus:outline-none bg-white/10 rounded-sm py-[1px] px-1 no-spinner"
               />
-              <FieldInfo field={field}/>
+              <FieldInfo field={field} />
             </div>
           )}
         </form.Field>
@@ -61,11 +65,11 @@ export default function AddProductForm() {
                 id={field.name}
                 type="number"
                 value={field.state.value}
-                onChange={e => field.handleChange(Number(e.target.value))}
+                onChange={(e) => field.handleChange(Number(e.target.value))}
                 onBlur={field.handleBlur}
                 className="focus:outline-none bg-white/10 rounded-sm py-[1px] px-1 no-spinner"
               />
-              <FieldInfo field={field}/>
+              <FieldInfo field={field} />
             </div>
           )}
         </form.Field>
@@ -77,11 +81,11 @@ export default function AddProductForm() {
                 id={field.name}
                 type="number"
                 value={field.state.value}
-                onChange={e => field.handleChange(Number(e.target.value))}
+                onChange={(e) => field.handleChange(Number(e.target.value))}
                 onBlur={field.handleBlur}
                 className="focus:outline-none bg-white/10 rounded-sm py-[1px] px-1 no-spinner"
               />
-              <FieldInfo field={field}/>
+              <FieldInfo field={field} />
             </div>
           )}
         </form.Field>
@@ -93,35 +97,35 @@ export default function AddProductForm() {
                 id={field.name}
                 type="text"
                 value={field.state.value}
-                onChange={e => field.handleChange(e.target.value)}
+                onChange={(e) => field.handleChange(e.target.value)}
                 onBlur={field.handleBlur}
                 className="focus:outline-none bg-white/10 rounded-sm py-[1px] px-1 no-spinner"
               />
-              <FieldInfo field={field}/>
+              <FieldInfo field={field} />
             </div>
           )}
         </form.Field>
         <form.Field name="favorite">
           {(field) => (
             <div className="flex flex-col">
-              <label htmlFor={field.name} className="cursor-pointer inline-block self-start">Favorite</label>
+              <label htmlFor={field.name} className="cursor-pointer inline-block self-start">
+                Favorite
+              </label>
               <input
                 id={field.name}
                 type="checkbox"
                 checked={field.state.value}
-                onChange={e => field.handleChange(e.target.checked)}
+                onChange={(e) => field.handleChange(e.target.checked)}
                 className="hidden"
               />
-              <FieldInfo field={field}/>
+              <FieldInfo field={field} />
             </div>
           )}
         </form.Field>
         <div className="flex justify-center">
-          <Button type="submit">
-            Add Product
-          </Button>
+          <Button type="submit">Add Product</Button>
         </div>
       </div>
     </form>
   );
-};
+}
