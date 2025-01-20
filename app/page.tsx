@@ -27,47 +27,18 @@ export default function Page() {
     }
   }, []);
 
-  const caloriePercentage = Math.min(
-    (consumedCalories / goalCalories) * 100,
-    100,
-  );
-  const waterPercentage = Math.min((consumedWater / goalWater) * 100, 100);
-  
-  const remainingCalories = goalCalories - consumedCalories;
-  const remainingWater = goalWater - consumedWater;
+
   
   return (
-    <div>
-      <div className="grid grid-cols-2 sm:flex">
-        <GoalCard
-          title="Spożyte Kalorie"
-          percentage={caloriePercentage}
-          goal={goalCalories}
-          setGoal={setGoalCalories}
-          unit="kcal"
-          value={consumedCalories}
-          remainingValue={remainingCalories}
-        />
-        <GoalCard
-          title="Spożyta Woda"
-          percentage={waterPercentage}
-          goal={goalWater}
-          setGoal={setGoalWater}
-          unit="ml"
-          value={consumedWater}
-          remainingValue={remainingWater}
-        />
-      </div>
-      
-      <div className="mt-8">
-        <h3 className="text-xl text-white mb-4">Twoje dane:</h3>
-        <div className="bg-gray-700 p-4 rounded-lg text-white">
-          <p><strong>Waga:</strong> {weight ? `${weight} kg` : 'Brak danych'}</p>
-          <p><strong>Wzrost:</strong> {height ? `${height} cm` : 'Brak danych'}</p>
+      <div>
+        <AddedMealsList meals={meals}/>
+        <div className="mt-8">
+          <h3 className="text-xl text-white mb-4">Your stats:</h3>
+          <div className="bg-gray-700 p-4 rounded-lg text-white">
+            <p><strong>Waga:</strong> {weight ? `${weight} kg` : 'Brak danych'}</p>
+            <p><strong>Wzrost:</strong> {height ? `${height} cm` : 'Brak danych'}</p>
+          </div>
         </div>
       </div>
-    
-      <AddedMealsList meals={meals} />
-    </div>
   );
 }
