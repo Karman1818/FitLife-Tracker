@@ -30,7 +30,7 @@ export default function Nav() {
         className="flex flex-row items-center gap-4 transition-all duration-300 group hover:bg-white/5 hover:gap-2 py-1 px-2 hover:pr-4 rounded-md"
       >
         <GrHomeRounded className="w-6 h-6"/>
-        <p className="w-0 opacity-0 group-hover:w-auto group-hover:opacity-100">Home</p>
+        <p className="w-0 opacity-0 group-hover:w-auto group-hover:opacity-100">FitLifeTracker</p>
       </Link>
       <Link
         href="/calories"
