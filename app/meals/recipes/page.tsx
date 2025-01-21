@@ -27,15 +27,15 @@ export default function Page() {
     <>
       {mealData.length > 0 ? (
         mealData.map((meal) => (
-          <div key={meal.idMeal} style={{ textAlign: "center" }}>
+          <div className="bg-white/10 border-2 border-white/5 shadow-lg m-1 p-1 rounded-lg space-y-1 backdrop-blur-md text-center" key={meal.idMeal}>
             <h1>{meal.strMeal}</h1>
-            <p>{meal.strInstructions}</p>
+            <p >{meal.strInstructions}</p>
           </div>
         ))
       ) : (
         <p>Loading...</p>
       )}
-      <button onClick={() => router.back()}>Go Back</button>
+      <button className="bg-white/10 border-2 border-white/5 shadow-lg m-1 p-1 rounded-lg space-y-1 backdrop-blur-md text-center" onClick={() => router.back()}>Go Back</button>
     </>
   );
 }
