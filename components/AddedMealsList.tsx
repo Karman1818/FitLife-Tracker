@@ -1,14 +1,7 @@
 import React, { useState } from "react";
+import { Meal } from "@/stores/calories";
 import AddProductForm from "./AddProductForm";
 import GoalCard from "./GoalCard";  // Zaimportuj komponent GoalCard
-
-interface Meal {
-    name: string;
-    calories: number;
-    category: string;
-    favorite: boolean;
-    water: number;  // Dodaj właściwość dla wody
-}
 
 interface Props {
     meals: Meal[];
@@ -21,9 +14,9 @@ export default function AddedMealsList({ meals }: Props) {
         setMealList([...mealList, meal]);
     };
 
-    // Obliczanie sumy kalorii i wody
+    // Obliczanie sumy kalorii i wody z zabezpieczeniem na undefined
     const totalCalories = mealList.reduce((sum, meal) => sum + meal.calories, 0);
-    const totalWater = mealList.reduce((sum, meal) => sum + meal.water, 0);  // Dodaj sumowanie wody
+    const totalWater = mealList.reduce((sum, meal) => sum + (meal.water ?? 0), 0);  // Używamy 0, gdy water jest undefined
 
     // Przykład celu kalorycznego i celu wody
     const [calorieGoal, setCalorieGoal] = useState(2000);
@@ -56,25 +49,23 @@ export default function AddedMealsList({ meals }: Props) {
             </div>
 
             <AddProductForm onAddMeal={handleAddMeal}/>
-            <div
-                className="bg-white/10 border-2 border-white/5 shadow-lg m-1 p-1 rounded-lg space-y-1 backdrop-blur-md mt-2">
+
+            <div className="bg-white/10 border-2 border-white/5 shadow-lg m-1 p-1 rounded-lg space-y-1 backdrop-blur-md mt-2">
                 <h3>Added meals</h3>
                 {mealList.length === 0 ? (
-                    <p>There is no meals added yet.</p>
+                    <p>There are no meals added yet.</p>
                 ) : (
                     mealList.map((meal, index) => (
-                        <div key={index}>
+                        <div key={index} className="meal-item">
                             <p>{meal.name}</p>
                             <p>{meal.calories} kcal</p>
                             <p>{meal.category}</p>
                             <p>{meal.favorite ? "Favorite" : "Not Favorite"}</p>
-                            <p>{meal.water} ml of water</p>  {/* Wyświetl woda dla każdego posiłku */}
+                            <p>{meal.water ?? 0} ml of water</p>  {/* Zabezpieczenie przed undefined */}
                         </div>
                     ))
                 )}
             </div>
-
-
         </>
     );
 }

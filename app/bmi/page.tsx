@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import DrawBMICanvas from "@/components/DrawBMICanvas";
 import Video from "@/components/Video";
 import Button from "@/components/averi-ui/button";
