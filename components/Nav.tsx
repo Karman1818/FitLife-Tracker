@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { GrHomeRounded } from "react-icons/gr";
 import { GiMeal } from "react-icons/gi";
 import { FaWeight } from "react-icons/fa";
 import { GiForkKnifeSpoon } from "react-icons/gi";
 import { useSession } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Logo from "@/components/icons/logo";
 
 export default function Nav() {
   const session = useSession();
@@ -29,7 +29,7 @@ export default function Nav() {
         href="/"
         className="flex flex-row items-center gap-4 transition-all duration-300 group hover:bg-white/5 hover:gap-2 py-1 px-2 hover:pr-4 rounded-md"
       >
-        <GrHomeRounded className="w-6 h-6"/>
+        <Logo className="w-6 h-6"/>
         <p className="w-0 opacity-0 group-hover:w-auto group-hover:opacity-100">FitLifeTracker</p>
       </Link>
       <Link
