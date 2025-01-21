@@ -28,8 +28,8 @@ export default function Page() {
       <div className="bg-white/10 border-2 border-white/5 shadow-lg m-1 p-1 rounded-lg space-y-1 backdrop-blur-md">
         <h3 className="text-xl text-white">Your stats:</h3>
         <div>
-          <p><strong>Waga:</strong> {weight ? `${weight} kg` : "Brak danych"}</p>
-          <p><strong>Wzrost:</strong> {height ? `${height} cm` : "Brak danych"}</p>
+          <p><strong>Weight:</strong> {weight ? `${weight} kg` : "null"}</p>
+          <p><strong>Height:</strong> {height ? `${height} cm` : "null"}</p>
         </div>
       </div>
     </div>
