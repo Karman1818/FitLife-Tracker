@@ -90,6 +90,24 @@ FitLife-Tracker/
 
 ---
 
+
+---
+
+## 👨‍💻 My Role & Key Contributions
+
+FitLife Tracker is a collaborative team project. As a Core Full-Stack Developer, my primary focus was on client-side state architecture, nutritional computation, and meal management flows:
+
+* **Calorie & Macro Computation Engine (CaloriesManager)**:
+  * Implemented the calculation logic for real-time daily caloric intake, macro breakdowns (protein, carbohydrates, fats), and target tracking across 5 daily meal categories.
+* **Product Logging & Search Flow (AddProductForm)**:
+  * Built the interactive form workflows for adding nutritional items, incorporating dynamic product lookups, custom serving sizes, and instant validation.
+* **Global State Management (Zustand Store)**:
+  * Architected the centralized reactive store (productStore) handling product additions, modifications, deletions, and state persistence with seamless UI synchronization.
+* **Recipe Catalog & Meal Discovery**:
+  * Developed the dynamic meal and recipe browsing pages, allowing users to inspect ingredients, macros, and incorporate recipes into their daily schedules.
+* **Navigation Architecture & Routing**:
+  * Structured application routing, layout hierarchy, and page transitions to ensure a cohesive user journey.
+
 ## 🚀 Getting Started
 
 Follow these instructions to set up and run FitLife Tracker on your local machine.
@@ -184,3 +202,4 @@ Contributions are welcome! Feel free to open issues or submit pull requests.
 ## 📄 License
 
 Distributed under the MIT License. See `LICENSE` for more details.
+
