@@ -4,6 +4,8 @@
 [![React](https://img.shields.io/badge/React-19.0-61DAFB?style=for-the-badge&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+[![Vitest](https://img.shields.io/badge/Tested_with-Vitest-FCC72B?style=for-the-badge&logo=vitest)](https://vitest.dev/)
+[![CI](https://img.shields.io/badge/CI-GitHub_Actions-2088FF?style=for-the-badge&logo=githubactions)](.github/workflows/ci-cd.yml)
 [![Prisma](https://img.shields.io/badge/Prisma-6.2-2D3748?style=for-the-badge&logo=prisma)](https://www.prisma.io/)
 [![NextAuth.js](https://img.shields.io/badge/NextAuth.js-v5.0_beta-purple?style=for-the-badge&logo=next.js)](https://authjs.dev/)
 [![Live Demo](https://img.shields.io/badge/Live_Demo-tmp0.averi.me-brightgreen?style=for-the-badge&logo=vercel)](https://tmp0.averi.me/)
@@ -54,6 +56,11 @@
 - **Database:** PostgreSQL
 - **ORM:** [Prisma 6](https://www.prisma.io/) (`@prisma/client`, `@prisma/adapter-pg`)
 - **Authentication:** [Auth.js (NextAuth.js v5)](https://authjs.dev/) with `@auth/prisma-adapter` & Resend Provider
+
+### **Testing & CI/CD**
+- **Test Framework:** [Vitest](https://vitest.dev/) with [JSDOM](https://github.com/jsdom/jsdom)
+- **Component Testing:** [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+- **CI/CD Automation:** [GitHub Actions](https://github.com/features/actions) (Lint, Typecheck, Unit/Integration Tests, Production Build)
 
 ---
 
@@ -148,7 +155,11 @@ bun install
 
 ### 3. Configure Environment Variables
 
-Create a `.env` file in the root directory and specify your environment variables:
+Copy the example environment template and adjust variables as needed:
+
+```bash
+cp .env.example .env
+```
 
 ```env
 # Database Connection URL (PostgreSQL)
@@ -196,6 +207,8 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 | `npm run start` | Starts the production server |
 | `npm run lint` | Runs ESLint analysis across the codebase |
 | `npm run tsc` | Executes TypeScript type checking |
+| `npm run test` | Runs automated unit and integration tests via Vitest |
+| `npm run test:watch` | Runs Vitest in interactive watch mode |
 
 ---
 
