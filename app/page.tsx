@@ -3,12 +3,10 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import AddedMealsList from "@/components/AddedMealsList";
-import { Meal } from "@/stores/calories";
 import { calculateBmi, getBMICategory, getBMICategoryColor } from "@/lib/bmi";
 import { FaWeight, FaRulerVertical, FaCalculator, FaArrowRight } from "react-icons/fa";
 
 export default function Page() {
-  const [meals] = useState<Meal[]>([]);
   const [weight, setWeight] = useState<string>("");
   const [height, setHeight] = useState<string>("");
 
@@ -28,7 +26,7 @@ export default function Page() {
   return (
     <div className="max-w-6xl mx-auto py-8 px-4 sm:px-6 lg:px-8 space-y-6">
       {/* Daily Nutrition & Goals Tracker */}
-      <AddedMealsList meals={meals} />
+      <AddedMealsList />
 
       {/* User Stats Card */}
       <div className="bg-white/10 border-2 border-white/5 shadow-2xl rounded-2xl p-6 backdrop-blur-md space-y-4">
