@@ -1,41 +1,85 @@
-name: "CI/CD"
+name: CI Pipeline
 
-on: [ push, pull_request ]
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+env:
+  DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/fitlife_db?schema=public"
+  AUTH_SECRET: "ci-test-auth-secret-string-32-chars-long"
+  EMAIL_FROM: "ci@fitlife.local"
+  AUTH_RESEND_KEY: "re_ci_placeholder_key"
 
 jobs:
-  tsc:
-    name: test compile (tsc)
+  lint-and-typecheck:
+    name: Lint & Typecheck
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
         with:
-          bun-version: latest
+          node-version: 20
+          cache: "npm"
 
       - name: Install dependencies
-        run: bun install
+        run: npm ci
 
-      - name: Check TypeScript
-        run: bun run tsc
-
-  es-lint:
-    name: check linting (es-lint)
-    needs: [ tsc ]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: latest
-
-      - name: Install dependencies
-        run: bun install
+      - name: Generate Prisma Client
+        run: npx prisma generate
 
       - name: Check ESLint
-        run: bun lint
+        run: npm run lint
+
+      - name: Check TypeScript types
+        run: npm run tsc
+
+  test:
+    name: Unit & Integration Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Prisma Client
+        run: npx prisma generate
+
+      - name: Run Vitest Suite
+        run: npm run test
+
+  build:
+    name: Next.js Production Build
+    needs: [lint-and-typecheck, test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Prisma Client
+        run: npx prisma generate
+
+      - name: Build Next.js Application
+        run: npm run build
