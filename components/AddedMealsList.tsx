@@ -106,20 +106,26 @@ export default function AddedMealsList({}: Props) {
       setSearchMessage(null);
       setSearchResults([]);
 
-      const res = await fetch(
+      // 1. Query internal API route proxy (CORS-safe, server-cached)
+      const res = await fetch(`/api/food/search?q=${encodeURIComponent(query)}`);
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data.products) && data.products.length > 0) {
+          setSearchResults(data.products);
+          return;
+        }
+      }
+
+      // 2. Direct fallback without custom forbidden headers if proxy isn't reached
+      const directRes = await fetch(
         `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURIComponent(
           query
-        )}&search_simple=1&action=process&json=1&page_size=8`,
-        {
-          headers: {
-            "User-Agent": "FitLifeTracker/1.0 (contact: support@fitlife.app)",
-          },
-        }
+        )}&search_simple=1&action=process&json=1&page_size=8`
       );
-      const data = await res.json();
+      const directData = await directRes.json();
 
-      if (Array.isArray(data.products) && data.products.length > 0) {
-        const results: ProductResult[] = data.products
+      if (Array.isArray(directData.products) && directData.products.length > 0) {
+        const results: ProductResult[] = directData.products
           .filter((p: { product_name?: string }) => Boolean(p.product_name))
           .slice(0, 6)
           .map((p: {
@@ -141,23 +147,22 @@ export default function AddedMealsList({}: Props) {
               code: p.code || p.id || "",
               brand: p.brands || undefined,
               calories100g: Math.round(Number(kcal100g) || 0),
-              protein100g: Number(p.nutriments?.proteins_100g) || 0,
-              carbs100g: Number(p.nutriments?.carbohydrates_100g) || 0,
-              fat100g: Number(p.nutriments?.fat_100g) || 0,
+              protein100g: Number(Number(p.nutriments?.proteins_100g || 0).toFixed(1)),
+              carbs100g: Number(Number(p.nutriments?.carbohydrates_100g || 0).toFixed(1)),
+              fat100g: Number(Number(p.nutriments?.fat_100g || 0).toFixed(1)),
             };
           });
 
         if (results.length > 0) {
           setSearchResults(results);
-        } else {
-          setSearchMessage("No matching food products found. You can enter it manually.");
+          return;
         }
-      } else {
-        setSearchMessage("No results found. Try another search term or enter it manually.");
       }
+
+      setSearchMessage("No matching food products found. You can enter values manually.");
     } catch (err) {
       console.error("OpenFoodFacts search error:", err);
-      setSearchMessage("Search failed or database offline. Please enter values manually.");
+      setSearchMessage("Search unavailable. Please enter food values manually.");
     } finally {
       setIsSearching(false);
     }
