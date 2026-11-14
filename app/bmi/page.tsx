@@ -124,16 +124,38 @@ export default function Page() {
             </h1>
 
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-4">
-                <label className="block">
-                  <span className="text-white text-lg mb-2 block">Weight (kg)</span>
-                  <div className="relative">
+              <div className="space-y-5">
+                {/* Weight Input & Slider */}
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <label htmlFor="weight-number-input" className="text-white text-lg font-medium cursor-pointer">
+                      Weight
+                    </label>
+                    <div className="flex items-center bg-white/10 border border-white/20 rounded-lg px-3 py-1 shadow-inner focus-within:border-white/50 focus-within:bg-white/15 transition-all">
+                      <input
+                        id="weight-number-input"
+                        type="number"
+                        name="weight"
+                        min="1"
+                        max="300"
+                        step="any"
+                        placeholder="0"
+                        value={formData.weight}
+                        onChange={handleInputChange}
+                        className="w-20 bg-transparent text-right text-white font-semibold text-lg focus:outline-none no-spinner"
+                      />
+                      <span className="text-white/60 ml-2 text-sm font-medium">kg</span>
+                    </div>
+                  </div>
+
+                  <div className="relative pt-1">
                     <input
-                      className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+                      className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-[#f50]"
                       id="weight-range"
                       type="range"
                       min="0"
                       max="200"
+                      step="0.5"
                       name="weight"
                       value={formData.weight || 0}
                       onChange={handleInputChange}
@@ -141,21 +163,45 @@ export default function Page() {
                         background: `linear-gradient(to right, #f50 ${weightProgress}%, #374151 ${weightProgress}%)`,
                       }}
                     />
-                    <div className="weight-value text-white text-center mt-2 font-medium">
-                      {formData.weight || 0} kg
+                    <div className="flex justify-between text-xs text-white/40 mt-1 px-1">
+                      <span>0 kg</span>
+                      <span>100 kg</span>
+                      <span>200 kg</span>
                     </div>
                   </div>
-                </label>
+                </div>
 
-                <label className="block">
-                  <span className="text-white text-lg mb-2 block">Height (cm)</span>
-                  <div className="relative">
+                {/* Height Input & Slider */}
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <label htmlFor="height-number-input" className="text-white text-lg font-medium cursor-pointer">
+                      Height
+                    </label>
+                    <div className="flex items-center bg-white/10 border border-white/20 rounded-lg px-3 py-1 shadow-inner focus-within:border-white/50 focus-within:bg-white/15 transition-all">
+                      <input
+                        id="height-number-input"
+                        type="number"
+                        name="height"
+                        min="1"
+                        max="250"
+                        step="any"
+                        placeholder="0"
+                        value={formData.height}
+                        onChange={handleInputChange}
+                        className="w-20 bg-transparent text-right text-white font-semibold text-lg focus:outline-none no-spinner"
+                      />
+                      <span className="text-white/60 ml-2 text-sm font-medium">cm</span>
+                    </div>
+                  </div>
+
+                  <div className="relative pt-1">
                     <input
-                      className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+                      className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-[#f50]"
                       id="height-range"
                       type="range"
                       min="0"
                       max="250"
+                      step="1"
                       name="height"
                       value={formData.height || 0}
                       onChange={handleInputChange}
@@ -163,11 +209,13 @@ export default function Page() {
                         background: `linear-gradient(to right, #f50 ${heightProgress}%, #374151 ${heightProgress}%)`,
                       }}
                     />
-                    <div className="height-value text-white text-center mt-2 font-medium">
-                      {formData.height || 0} cm
+                    <div className="flex justify-between text-xs text-white/40 mt-1 px-1">
+                      <span>0 cm</span>
+                      <span>125 cm</span>
+                      <span>250 cm</span>
                     </div>
                   </div>
-                </label>
+                </div>
               </div>
 
               <Button
