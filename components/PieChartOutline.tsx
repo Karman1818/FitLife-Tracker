@@ -1,32 +1,33 @@
 import React from "react";
 
 interface Props {
-  percentage: number; // Procentowy zakres od 0 do 100
-  size: number; // Rozmiar kontenera
-  value: number; // Wartość wyświetlana w centralnym okręgu (kalorie lub ml)
-  unit: string; // Jednostka, np. "kalorii" lub "ml"
-  remainingValue: number; // Pozostała wartość do osiągnięcia celu
+  percentage: number;
+  size: number;
+  value: number;
+  unit: string;
+  remainingValue: number;
 }
 
 export default function PieChartComponent({ percentage, size, value, unit, remainingValue }: Props) {
-  const radius = size / 2; // Średnica
-  const innerCircleRadius = radius - 8; // Mniejsze kolo z marginesem 8px
-  
+  const radius = size / 2;
+  const innerCircleRadius = radius - 8;
+  const clampedPercentage = Math.min(100, Math.max(0, percentage));
+
   return (
     <div style={{ width: `${size}px`, height: `${size}px`, position: "relative" }}>
-      {/* Główne koło z wypełnieniem */}
+      {/* Outer circle with gradient border */}
       <div
         className="pie"
         style={{
           width: `${size}px`,
           height: `${size}px`,
           borderRadius: "50%",
-          backgroundImage: `conic-gradient(yellowgreen 0% ${percentage}%, transparent ${percentage}% 100%)`,
+          backgroundImage: `conic-gradient(#22c55e 0% ${clampedPercentage}%, rgba(255, 255, 255, 0.1) ${clampedPercentage}% 100%)`,
           position: "relative",
-          transition: "background-image 0.5s ease-in-out", // Płynne przejście w CSS
+          transition: "background-image 0.5s ease-in-out",
         }}
       >
-        {/* Czarne wewnętrzne koło */}
+        {/* Dark inner circle */}
         <div
           className="inner-circle"
           style={{
@@ -36,23 +37,28 @@ export default function PieChartComponent({ percentage, size, value, unit, remai
             width: `${innerCircleRadius * 2}px`,
             height: `${innerCircleRadius * 2}px`,
             borderRadius: "50%",
-            background: "rgb(36, 36, 36)",
+            background: "rgba(24, 27, 33, 0.95)",
             transform: "translate(-50%, -50%)",
             display: "flex",
-            flexDirection: "column", // Ustawiamy tekst w kolumnie
-            justifyContent: "center", // Centrujemy w pionie
-            alignItems: "center", // Centrujemy w poziomie
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
             color: "white",
-            fontSize: "16px",
-            fontWeight: "bold",
             textAlign: "center",
-            padding: "5px",
+            padding: "8px",
           }}
         >
-          <div style={{ color: "yellowgreen", fontSize: "30px" }}>{value} {unit}</div>
-          <div style={{ fontSize: "20px", marginTop: "5px" }}>{remainingValue} {unit}</div>
+          <div className="text-2xl font-extrabold text-green-400">
+            {value} <span className="text-sm font-semibold">{unit}</span>
+          </div>
+          <div className="text-xs text-white/70 font-medium mt-1">
+            {remainingValue > 0 ? `${remainingValue} ${unit} left` : "Goal reached! 🎉"}
+          </div>
+          <div className="text-[11px] text-white/50 font-medium mt-0.5">
+            {Math.round(clampedPercentage)}% of goal
+          </div>
         </div>
       </div>
     </div>
   );
-};
+}
