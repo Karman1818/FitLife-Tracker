@@ -64,6 +64,14 @@ export default function AddedMealsList({}: Props) {
   const [carbs, setCarbs] = useState("");
   const [fat, setFat] = useState("");
 
+  // Base nutritional values per 100g for automatic portion scaling
+  const [basePer100g, setBasePer100g] = useState<{
+    calories: number;
+    protein: number;
+    carbs: number;
+    fat: number;
+  } | null>(null);
+
   // Search State
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<ProductResult[]>([]);
@@ -173,6 +181,13 @@ export default function AddedMealsList({}: Props) {
     const mult = gramNum / 100;
 
     setFoodName(item.brand ? `${item.label} (${item.brand})` : item.label);
+    setBasePer100g({
+      calories: item.calories100g,
+      protein: item.protein100g,
+      carbs: item.carbs100g,
+      fat: item.fat100g,
+    });
+
     setCalories(Math.round(item.calories100g * mult).toString());
     setProtein((item.protein100g * mult).toFixed(1));
     setCarbs((item.carbs100g * mult).toFixed(1));
@@ -182,6 +197,100 @@ export default function AddedMealsList({}: Props) {
     setActiveTab("custom");
     setSearchResults([]);
     setSearchQuery("");
+  };
+
+  const handleWeightChange = (newWeightStr: string) => {
+    const oldWeight = parseFloat(weightInGrams) || 100;
+    setWeightInGrams(newWeightStr);
+    const newWeight = parseFloat(newWeightStr);
+    if (isNaN(newWeight) || newWeight <= 0) return;
+
+    // Use current base per 100g or calculate it from existing input values
+    let currentBase = basePer100g;
+    if (!currentBase) {
+      const curCal = parseFloat(calories);
+      const curProt = parseFloat(protein);
+      const curCarbs = parseFloat(carbs);
+      const curFat = parseFloat(fat);
+      if (!isNaN(curCal) || !isNaN(curProt) || !isNaN(curCarbs) || !isNaN(curFat)) {
+        currentBase = {
+          calories: !isNaN(curCal) && oldWeight > 0 ? (curCal / oldWeight) * 100 : 0,
+          protein: !isNaN(curProt) && oldWeight > 0 ? (curProt / oldWeight) * 100 : 0,
+          carbs: !isNaN(curCarbs) && oldWeight > 0 ? (curCarbs / oldWeight) * 100 : 0,
+          fat: !isNaN(curFat) && oldWeight > 0 ? (curFat / oldWeight) * 100 : 0,
+        };
+        setBasePer100g(currentBase);
+      }
+    }
+
+    if (currentBase) {
+      const mult = newWeight / 100;
+      setCalories(Math.round(currentBase.calories * mult).toString());
+      setProtein((currentBase.protein * mult).toFixed(1));
+      setCarbs((currentBase.carbs * mult).toFixed(1));
+      setFat((currentBase.fat * mult).toFixed(1));
+    }
+  };
+
+  const calcRatio = (rawStr: string, weight: number): number => {
+    const val = parseFloat(rawStr);
+    return !isNaN(val) && weight > 0 ? (val / weight) * 100 : 0;
+  };
+
+  const handleCaloriesChange = (val: string) => {
+    setCalories(val);
+    const w = parseFloat(weightInGrams) || 100;
+    if (w > 0) {
+      const num = parseFloat(val) || 0;
+      setBasePer100g((prev) => ({
+        calories: (num / w) * 100,
+        protein: prev?.protein ?? calcRatio(protein, w),
+        carbs: prev?.carbs ?? calcRatio(carbs, w),
+        fat: prev?.fat ?? calcRatio(fat, w),
+      }));
+    }
+  };
+
+  const handleProteinChange = (val: string) => {
+    setProtein(val);
+    const w = parseFloat(weightInGrams) || 100;
+    if (w > 0) {
+      const num = parseFloat(val) || 0;
+      setBasePer100g((prev) => ({
+        calories: prev?.calories ?? calcRatio(calories, w),
+        protein: (num / w) * 100,
+        carbs: prev?.carbs ?? calcRatio(carbs, w),
+        fat: prev?.fat ?? calcRatio(fat, w),
+      }));
+    }
+  };
+
+  const handleCarbsChange = (val: string) => {
+    setCarbs(val);
+    const w = parseFloat(weightInGrams) || 100;
+    if (w > 0) {
+      const num = parseFloat(val) || 0;
+      setBasePer100g((prev) => ({
+        calories: prev?.calories ?? calcRatio(calories, w),
+        protein: prev?.protein ?? calcRatio(protein, w),
+        carbs: (num / w) * 100,
+        fat: prev?.fat ?? calcRatio(fat, w),
+      }));
+    }
+  };
+
+  const handleFatChange = (val: string) => {
+    setFat(val);
+    const w = parseFloat(weightInGrams) || 100;
+    if (w > 0) {
+      const num = parseFloat(val) || 0;
+      setBasePer100g((prev) => ({
+        calories: prev?.calories ?? calcRatio(calories, w),
+        protein: prev?.protein ?? calcRatio(protein, w),
+        carbs: prev?.carbs ?? calcRatio(carbs, w),
+        fat: (num / w) * 100,
+      }));
+    }
   };
 
   const handleAddProduct = (e: FormEvent) => {
@@ -213,6 +322,7 @@ export default function AddedMealsList({}: Props) {
     setProtein("");
     setCarbs("");
     setFat("");
+    setBasePer100g(null);
   };
 
   const openFormForMeal = (mealId: number) => {
@@ -568,27 +678,56 @@ export default function AddedMealsList({}: Props) {
                   />
                 </div>
 
-                {/* Portion Weight */}
+                {/* Portion Weight with Autoscaling & Quick Buttons */}
                 <div>
-                  <label className="block text-xs font-bold text-white/80 uppercase tracking-wider mb-1.5">
-                    Portion Weight (g)
-                  </label>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="text-xs font-bold text-white/80 uppercase tracking-wider">
+                      Portion Weight (g)
+                    </label>
+                    {basePer100g && (
+                      <span className="text-[10px] text-green-400 font-bold px-1.5 py-0.5 bg-green-500/20 rounded">
+                        ⚡ Autoscaling
+                      </span>
+                    )}
+                  </div>
                   <input
                     type="text"
                     inputMode="numeric"
                     value={weightInGrams}
-                    onChange={(e) => setWeightInGrams(e.target.value)}
+                    onChange={(e) => handleWeightChange(e.target.value)}
                     placeholder="100"
-                    className="w-full bg-black/40 border border-white/20 rounded-xl px-3.5 py-2 text-white font-semibold text-sm focus:outline-none focus:ring-2 focus:ring-green-400 text-center"
+                    className="w-full bg-black/40 border border-white/20 rounded-xl px-3.5 py-2 text-white font-bold text-sm focus:outline-none focus:ring-2 focus:ring-green-400 text-center"
                   />
+                  {/* Quick portion buttons */}
+                  <div className="flex items-center justify-center gap-1 mt-2 flex-wrap">
+                    {["50", "100", "150", "200", "250", "300"].map((g) => (
+                      <button
+                        key={g}
+                        type="button"
+                        onClick={() => handleWeightChange(g)}
+                        className={`text-[10px] font-bold px-2 py-0.5 rounded-md border transition-all ${
+                          weightInGrams === g
+                            ? "bg-green-600 text-white border-green-400 shadow-sm"
+                            : "bg-white/5 text-white/60 border-white/10 hover:bg-white/15 hover:text-white"
+                        }`}
+                      >
+                        {g}g
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
 
               {/* Nutritional Values & Macro Inputs - Always clearly displayed */}
               <div>
-                <label className="block text-xs font-bold text-white/80 uppercase tracking-wider mb-1.5">
-                  Nutritional Values & Macro Breakdown
-                </label>
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="text-xs font-bold text-white/80 uppercase tracking-wider">
+                    Nutritional Values &amp; Macro Breakdown
+                  </label>
+                  <span className="text-[10px] text-white/50 italic">
+                    {basePer100g ? "* Macros scale automatically with portion weight" : "* Enter macros directly or search database"}
+                  </span>
+                </div>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   {/* Calories */}
                   <div className="bg-black/30 border border-green-500/30 rounded-xl p-3 space-y-1">
@@ -599,7 +738,7 @@ export default function AddedMealsList({}: Props) {
                       type="text"
                       inputMode="decimal"
                       value={calories}
-                      onChange={(e) => setCalories(e.target.value)}
+                      onChange={(e) => handleCaloriesChange(e.target.value)}
                       placeholder="e.g. 150"
                       className="w-full bg-transparent border-b border-green-500/40 py-1 text-green-300 font-extrabold text-lg focus:outline-none focus:border-green-400 placeholder:text-green-500/30"
                     />
@@ -614,7 +753,7 @@ export default function AddedMealsList({}: Props) {
                       type="text"
                       inputMode="decimal"
                       value={protein}
-                      onChange={(e) => setProtein(e.target.value)}
+                      onChange={(e) => handleProteinChange(e.target.value)}
                       placeholder="e.g. 20"
                       className="w-full bg-transparent border-b border-blue-500/40 py-1 text-blue-300 font-extrabold text-lg focus:outline-none focus:border-blue-400 placeholder:text-blue-500/30"
                     />
@@ -629,7 +768,7 @@ export default function AddedMealsList({}: Props) {
                       type="text"
                       inputMode="decimal"
                       value={carbs}
-                      onChange={(e) => setCarbs(e.target.value)}
+                      onChange={(e) => handleCarbsChange(e.target.value)}
                       placeholder="e.g. 15"
                       className="w-full bg-transparent border-b border-yellow-500/40 py-1 text-yellow-300 font-extrabold text-lg focus:outline-none focus:border-yellow-400 placeholder:text-yellow-500/30"
                     />
@@ -644,7 +783,7 @@ export default function AddedMealsList({}: Props) {
                       type="text"
                       inputMode="decimal"
                       value={fat}
-                      onChange={(e) => setFat(e.target.value)}
+                      onChange={(e) => handleFatChange(e.target.value)}
                       placeholder="e.g. 5"
                       className="w-full bg-transparent border-b border-red-500/40 py-1 text-red-300 font-extrabold text-lg focus:outline-none focus:border-red-400 placeholder:text-red-500/30"
                     />
