@@ -3,8 +3,10 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
 import Resend from "@auth/core/providers/resend";
 import { env } from "@/lib/env";
+import { authConfig } from "@/auth.config";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  ...authConfig,
   adapter: PrismaAdapter(prisma),
   providers: [
     Resend({
@@ -16,6 +18,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     brandColor: "#9900ff",
   },
   session: {
-    strategy: "database",
+    strategy: "jwt",
   },
 });
