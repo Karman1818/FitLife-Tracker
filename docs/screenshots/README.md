@@ -1,23 +1,12 @@
 # 📸 FitLife Tracker - Screenshots
 
-Place your project screenshots in this folder to display them in the main `README.md`.
+This folder contains the application showcase screenshots featured in the main `README.md`.
 
-### Recommended Screenshots:
-- `dashboard.png` - Main dashboard with daily calorie & water goals, day selector, and food logger.
-- `bmi-calculator.png` - Interactive BMI calculator with the canvas dial gauge.
-- `meals-catalog.png` - Meal and recipe discovery catalog.
-- `recipe-details.png` - Step-by-step recipe view with ingredients checklist.
-- `weekly-calories.png` - Full weekly calories planner (`/calories`).
-
-### Markdown snippet for `README.md`:
-```markdown
-## 📸 Screenshots
-
-| Dashboard & Nutrition Tracker | Interactive BMI Calculator |
-| :---: | :---: |
-| ![Dashboard](docs/screenshots/dashboard.png) | ![BMI Calculator](docs/screenshots/bmi-calculator.png) |
-
-| Recipe Catalog & Instructions | Weekly Calorie Planner |
-| :---: | :---: |
-| ![Recipe Details](docs/screenshots/recipe-details.png) | ![Weekly Calories](docs/screenshots/weekly-calories.png) |
-```
+### Screenshot Catalog:
+- `fitlifetracker1.png` - Main Dashboard: day selector, daily calorie & water goals, and quick water buttons.
+- `fitlifetracker2.png` - Food Logger: custom macro entry (calories, protein, carbs, fat) and portion scaling.
+- `fitlifetracker3.png` - Meals Breakdown: daily meals list and personal BMI metrics overview.
+- `fitlifetracker4.png` - Interactive Calories Planner: 7-day week calendar strip, date picker, and daily macro totals (`/calories`).
+- `fitlifetracker5.png` - Interactive BMI Calculator: synchronized range sliders & numeric inputs with Canvas dial gauge (`/bmi`).
+- `fitlifetracker6.png` - Recipe Discovery Catalog: global meals, cuisine tags, and random shuffle (`/meals`).
+- `fitlifetracker7.png` - Recipe Details: hero card, ingredients checklist, YouTube tutorial links, and step-by-step preparation steps (`/meals/recipes`).
