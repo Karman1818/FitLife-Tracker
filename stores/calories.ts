@@ -119,16 +119,23 @@ export const useCaloriesStore = create<CaloriesState>((set) => ({
   addProductToMeal(dayId, mealId, product) {
     set((state) => ({
       days: state.days.map((day) =>
-          day.id === dayId
-              ? {
-                ...day,
-                meals: day.meals.map((meal) =>
-                    meal.id === mealId
-                        ? { ...meal, products: [...meal.products, product] }
-                        : meal
-                ),
-              }
-              : day
+        day.id === dayId
+          ? {
+              ...day,
+              meals: day.meals.map((meal) => {
+                if (meal.id !== mealId) return meal;
+                const newProducts = [...meal.products, product];
+                const totalCalories = Math.round(
+                  newProducts.reduce((sum, p) => sum + (parseFloat(p.calories) || 0), 0)
+                );
+                return {
+                  ...meal,
+                  products: newProducts,
+                  calories: totalCalories,
+                };
+              }),
+            }
+          : day
       ),
     }));
   },
@@ -136,21 +143,25 @@ export const useCaloriesStore = create<CaloriesState>((set) => ({
   deleteProductFromMeal(dayId, mealId, productId) {
     set((state) => ({
       days: state.days.map((day) =>
-          day.id === dayId
-              ? {
-                ...day,
-                meals: day.meals.map((meal) =>
-                    meal.id === mealId
-                        ? {
-                          ...meal,
-                          products: meal.products.filter(
-                              (product) => product.id !== productId
-                          ),
-                        }
-                        : meal
-                ),
-              }
-              : day
+        day.id === dayId
+          ? {
+              ...day,
+              meals: day.meals.map((meal) => {
+                if (meal.id !== mealId) return meal;
+                const newProducts = meal.products.filter(
+                  (product) => product.id !== productId
+                );
+                const totalCalories = Math.round(
+                  newProducts.reduce((sum, p) => sum + (parseFloat(p.calories) || 0), 0)
+                );
+                return {
+                  ...meal,
+                  products: newProducts,
+                  calories: totalCalories,
+                };
+              }),
+            }
+          : day
       ),
     }));
   },

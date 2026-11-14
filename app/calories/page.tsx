@@ -23,20 +23,28 @@ export default function Page() {
   
   return (
     <div className="max-w-6xl mx-auto p-1.5 space-y-1.5">
-      {Days.map((day) => (
-        <div key={day.id}
-             className="bg-white/10 border-2 border-white/5 shadow-lg rounded-xl p-6 space-y-4 backdrop-blur-md transition-all hover:bg-white/15">
-          <h1 className="text-3xl font-bold text-white/90 border-b border-white/10 pb-2">{day.name}</h1>
-          
-          <div className="space-y-6">
-            {day.meals.map((meal) => (
-              <div key={meal.id} className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <h2 className="text-xl font-semibold text-white/80">{meal.name}</h2>
-                  <Button onClick={() => Add(day.id, meal.id)}>
-                    Add new product
-                  </Button>
-                </div>
+      {Days.map((day) => {
+        const dayTotalCalories = day.meals.reduce((sum, m) => sum + m.calories, 0);
+        return (
+          <div key={day.id}
+               className="bg-white/10 border-2 border-white/5 shadow-lg rounded-xl p-6 space-y-4 backdrop-blur-md transition-all hover:bg-white/15">
+            <h1 className="text-3xl font-bold text-white/90 border-b border-white/10 pb-2 flex justify-between items-center">
+              <span>{day.name}</span>
+              <span className="text-base font-medium text-green-400 bg-white/10 px-3 py-1 rounded-full">{dayTotalCalories} kcal</span>
+            </h1>
+            
+            <div className="space-y-6">
+              {day.meals.map((meal) => (
+                <div key={meal.id} className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-xl font-semibold text-white/80">
+                      {meal.name}
+                      <span className="text-sm font-normal text-white/60 ml-2">({meal.calories} kcal)</span>
+                    </h2>
+                    <Button onClick={() => Add(day.id, meal.id)}>
+                      Add new product
+                    </Button>
+                  </div>
                 
                 {openMealForms[day.id]?.[meal.id] && (
                   <div className="bg-white/5 rounded-lg p-4">
@@ -90,7 +98,8 @@ export default function Page() {
             ))}
           </div>
         </div>
-      ))}
+      );
+      })}
     </div>
   );
 };
