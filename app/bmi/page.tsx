@@ -4,16 +4,18 @@ import { useEffect, useState } from "react";
 import DrawBMICanvas from "@/components/DrawBMICanvas";
 import Video from "@/components/Video";
 import Button from "@/components/averi-ui/button";
+import {
+  calculateBmi,
+  getBMICategory,
+  getBMICategoryColor,
+  isExtremeBMI,
+} from "@/lib/bmi";
 
 export default function Page() {
   const [bmi, setBmi] = useState<number | null>(null);
   const [currentAngle, setCurrentAngle] = useState<number>(-Math.PI);
   const [formData, setFormData] = useState({ weight: "", height: "" });
   const [isShakeCompleted, setIsShakeCompleted] = useState(false);
-
-  const calculateBmi = (weight: number, height: number): number => {
-    return weight / Math.pow(height / 100, 2); // Height in cm
-  };
 
   // Restore saved weight/height from localStorage on mount
   useEffect(() => {
@@ -34,11 +36,6 @@ export default function Page() {
     }
   }, []);
 
-  const isExtremeBMI = (bmiValue: number | null): boolean => {
-    if (bmiValue === null) return false;
-    return bmiValue < 16 || bmiValue > 40;
-  };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const weight = parseFloat(formData.weight);
@@ -56,50 +53,6 @@ export default function Page() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const getBMICategory = (): string => {
-    if (bmi === null) return "Unknown category";
-
-    if (bmi < 16) {
-      return "Severe Underweight";
-    } else if (bmi >= 16 && bmi < 18.5) {
-      return "Underweight";
-    } else if (bmi >= 18.5 && bmi < 25) {
-      return "Normal Weight";
-    } else if (bmi >= 25 && bmi < 30) {
-      return "Overweight";
-    } else if (bmi >= 30 && bmi < 35) {
-      return "Obesity Class I";
-    } else if (bmi >= 35 && bmi < 40) {
-      return "Obesity Class II";
-    } else {
-      return "Obesity Class III";
-    }
-  };
-
-  const getBMICategoryColor = (): string => {
-    if (bmi === null) return "black";
-
-    if (bmi < 10) {
-      return "#FF5722"; // Severe Underweight
-    } else if (bmi >= 10 && bmi < 16) {
-      return "#FF9800"; // Underweight
-    } else if (bmi >= 16 && bmi <= 17) {
-      return "#FFE400"; // Mild Underweight
-    } else if (bmi >= 17 && bmi < 18.5) {
-      return "#D4E157"; // Slight Underweight
-    } else if (bmi >= 18.5 && bmi < 25) {
-      return "#4CAF50"; // Normal
-    } else if (bmi >= 25 && bmi < 30) {
-      return "#FF9800"; // Overweight
-    } else if (bmi >= 30 && bmi < 35) {
-      return "#FF5722"; // Obesity I
-    } else if (bmi >= 35 && bmi < 40) {
-      return "#D20000"; // Obesity II
-    } else {
-      return "#900000"; // Obesity III
-    }
   };
 
   const handleShakeEnd = () => {
@@ -230,9 +183,9 @@ export default function Page() {
               {bmi !== null && (
                 <div className="text-center space-y-4">
                   <h2 className="text-2xl font-bold text-white">
-                    BMI: <span style={{ color: getBMICategoryColor() }}>{bmi.toFixed(2)}</span>
+                    BMI: <span style={{ color: getBMICategoryColor(bmi) }}>{bmi.toFixed(2)}</span>
                   </h2>
-                  <p className="text-xl text-white/80">{getBMICategory()}</p>
+                  <p className="text-xl text-white/80">{getBMICategory(bmi)}</p>
                 </div>
               )}
 
