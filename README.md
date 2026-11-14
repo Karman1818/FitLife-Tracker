@@ -93,20 +93,32 @@ FitLife-Tracker/
 
 ---
 
-## 👨‍💻 My Role & Key Contributions
+## 👨‍💻 Karman1818 Role & Key Contributions
 
-FitLife Tracker is a collaborative team project. As a Core Full-Stack Developer, my primary focus was on client-side state architecture, nutritional computation, and meal management flows:
+FitLife Tracker was developed as a collaborative team project. As the repository creator and Core Full-Stack Developer (**Karman1818**), my primary contributions spanned client-side state architecture, nutritional computation, and meal management flows:
 
-* **Calorie & Macro Computation Engine (CaloriesManager)**:
-  * Implemented the calculation logic for real-time daily caloric intake, macro breakdowns (protein, carbohydrates, fats), and target tracking across 5 daily meal categories.
-* **Product Logging & Search Flow (AddProductForm)**:
-  * Built the interactive form workflows for adding nutritional items, incorporating dynamic product lookups, custom serving sizes, and instant validation.
 * **Global State Management (Zustand Store)**:
-  * Architected the centralized reactive store (productStore) handling product additions, modifications, deletions, and state persistence with seamless UI synchronization.
+  * Architected and refactored the centralized reactive store (`productStore` / `stores/calories.ts`), handling product additions, modifications, deletions, and state persistence with seamless UI synchronization.
+* **Calorie & Macro Computation Engine (CaloriesManager & Meal Logs)**:
+  * Implemented the calculation logic for real-time daily caloric intake, macro breakdowns (protein, carbohydrates, fats), and target tracking across 5 daily meal categories (`AddedMealsList`, `AddProductToMealForm`).
+* **Product Logging & Search Flow (AddProductForm)**:
+  * Built interactive form workflows for adding nutritional items, incorporating dynamic product lookups, custom serving sizes, and instant validation.
 * **Recipe Catalog & Meal Discovery**:
-  * Developed the dynamic meal and recipe browsing pages, allowing users to inspect ingredients, macros, and incorporate recipes into their daily schedules.
+  * Developed the dynamic meal and recipe browsing pages (`/meals`, `/meals/recipes`, `RecipesComponent`), allowing users to inspect ingredients, macros, and incorporate recipes into their daily schedules.
 * **Navigation Architecture & Routing**:
-  * Structured application routing, layout hierarchy, and page transitions to ensure a cohesive user journey.
+  * Structured application routing, layout hierarchy, page transitions, and dashboard widget integrations to ensure a cohesive user journey.
+
+---
+
+## 👥 Contributors & Special Thanks
+
+FitLife Tracker was brought to life thanks to close collaboration, shared vision, and teamwork. Huge appreciation to the team members who worked with me on building this application:
+
+* **[Karman1818](https://github.com/Karman1818)** (Marceli Karman) — Project owner, Zustand state architecture, nutrition & macro computation engine, meal and recipe discovery flows, routing & integration.
+* **[Averi](https://github.com/averi)** — Next.js architecture & Vite migration, Auth.js (NextAuth v5) & Prisma configuration, glassmorphic design system styling, CI/CD pipeline, and build optimization.
+* **[justPoosai](https://github.com/justPoosay)** (Oscar / Mike) — Interactive HTML5 Canvas BMI gauge visualizer, local metric persistence (LocalStorage), logo design (`components/icons/logo`), and initial frontend UI prototypes.
+
+Thank you to everyone for the great teamwork, brainstorming sessions, and shared dedication to making this project a reality! 🚀
 
 ## 🚀 Getting Started
 
