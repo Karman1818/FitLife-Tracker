@@ -15,6 +15,7 @@ import {
   FaListUl,
 } from "react-icons/fa";
 import Button from "@/components/averi-ui/button";
+import { formatRecipeSteps } from "@/lib/recipe";
 
 interface Meal {
   idMeal: string;
@@ -70,27 +71,6 @@ export default function Page() {
     return list;
   };
 
-  // Split and clean instructions into structured steps
-  const getFormattedSteps = (instructions?: string): string[] => {
-    if (!instructions) return [];
-
-    // Split on multiple newlines or single newlines with content
-    const paragraphs = instructions
-      .split(/\r?\n+/)
-      .map((p) => p.trim())
-      .filter((p) => p.length > 0);
-
-    // If it's a giant single block with "STEP 1", "STEP 2", split by step
-    if (paragraphs.length <= 1 && /STEP\s+\d+/i.test(instructions)) {
-      return instructions
-        .split(/(?=STEP\s+\d+)/i)
-        .map((s) => s.trim().replace(/^STEP\s+\d+[:.]?\s*/i, ""))
-        .filter((s) => s.length > 0);
-    }
-
-    return paragraphs;
-  };
-
   if (!meal) {
     return (
       <div className="py-16 px-4 max-w-2xl mx-auto text-center space-y-4">
@@ -107,7 +87,7 @@ export default function Page() {
   }
 
   const ingredients = getIngredients(meal);
-  const steps = getFormattedSteps(meal.strInstructions);
+  const steps = formatRecipeSteps(meal.strInstructions);
   const tags = meal.strTags ? meal.strTags.split(",").map((t) => t.trim()).filter(Boolean) : [];
 
   return (
