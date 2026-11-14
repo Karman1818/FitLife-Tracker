@@ -1,6 +1,6 @@
 "use client";
 
-import { useState} from "react";
+import { useEffect, useState } from "react";
 import DrawBMICanvas from "@/components/DrawBMICanvas";
 import Video from "@/components/Video";
 import Button from "@/components/averi-ui/button";
@@ -9,28 +9,47 @@ export default function Page() {
   const [bmi, setBmi] = useState<number | null>(null);
   const [currentAngle, setCurrentAngle] = useState<number>(-Math.PI);
   const [formData, setFormData] = useState({ weight: "", height: "" });
-  const [isShakeCompleted, setIsShakeCompleted] = useState(false); // State to control animation completion
-  
-  const isExtremeBMI = (bmiValue: number | null): boolean => {
-    if(bmiValue === null) return false;
-    return bmiValue < 16 || bmiValue > 40;
-  };
+  const [isShakeCompleted, setIsShakeCompleted] = useState(false);
 
   const calculateBmi = (weight: number, height: number): number => {
     return weight / Math.pow(height / 100, 2); // Height in cm
+  };
+
+  // Restore saved weight/height from localStorage on mount
+  useEffect(() => {
+    const storedWeight = localStorage.getItem("weight");
+    const storedHeight = localStorage.getItem("height");
+    if (storedWeight || storedHeight) {
+      setFormData({
+        weight: storedWeight || "",
+        height: storedHeight || "",
+      });
+      if (storedWeight && storedHeight) {
+        const w = parseFloat(storedWeight);
+        const h = parseFloat(storedHeight);
+        if (!isNaN(w) && !isNaN(h) && h > 0) {
+          setBmi(calculateBmi(w, h));
+        }
+      }
+    }
+  }, []);
+
+  const isExtremeBMI = (bmiValue: number | null): boolean => {
+    if (bmiValue === null) return false;
+    return bmiValue < 16 || bmiValue > 40;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const weight = parseFloat(formData.weight);
     const height = parseFloat(formData.height);
-    if(!isNaN(weight) && !isNaN(height) && height > 0) {
+    if (!isNaN(weight) && !isNaN(height) && height > 0) {
       const calculatedBmi = calculateBmi(weight, height);
       setBmi(calculatedBmi);
-      
+
       // Save weight and height to localStorage
-      localStorage.setItem('weight', formData.weight);
-      localStorage.setItem('height', formData.height);
+      localStorage.setItem("weight", formData.weight);
+      localStorage.setItem("height", formData.height);
     }
   };
 
@@ -39,45 +58,20 @@ export default function Page() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const weightRange = document.querySelector("#weight-range") as HTMLInputElement | null;
-  const weightValue = document.querySelector(".weight-value");
-  const heightRange = document.querySelector("#height-range") as HTMLInputElement | null;
-  const heightValue = document.querySelector(".height-value");
-
-  if(weightRange && weightValue) {
-    weightRange.addEventListener("input", (event) => {
-      const target = event.target as HTMLInputElement;
-      const tempSliderValueW = target.value;
-      weightValue.textContent = tempSliderValueW;
-      const progress = (parseFloat(tempSliderValueW) / parseFloat(weightRange.max)) * 100;
-      weightRange.style.background = `linear-gradient(to right, #f50 ${progress}%, #ccc ${progress}%)`;
-    });
-  }
-
-  if(heightRange && heightValue) {
-    heightRange.addEventListener("input", (event) => {
-      const target = event.target as HTMLInputElement;
-      const tempSliderValueH = target.value;
-      heightValue.textContent = tempSliderValueH;
-      const progress = (parseFloat(tempSliderValueH) / parseFloat(heightRange.max)) * 100;
-      heightRange.style.background = `linear-gradient(to right, #f50 ${progress}%, #ccc ${progress}%)`;
-    });
-  }
-
   const getBMICategory = (): string => {
-    if(bmi === null) return "Unknown category";
-    
-    if(bmi < 16) {
+    if (bmi === null) return "Unknown category";
+
+    if (bmi < 16) {
       return "Severe Underweight";
-    } else if(bmi >= 16 && bmi < 18.5) {
+    } else if (bmi >= 16 && bmi < 18.5) {
       return "Underweight";
-    } else if(bmi >= 18.5 && bmi < 25) {
+    } else if (bmi >= 18.5 && bmi < 25) {
       return "Normal Weight";
-    } else if(bmi >= 25 && bmi < 30) {
+    } else if (bmi >= 25 && bmi < 30) {
       return "Overweight";
-    } else if(bmi >= 30 && bmi < 35) {
+    } else if (bmi >= 30 && bmi < 35) {
       return "Obesity Class I";
-    } else if(bmi >= 35 && bmi < 40) {
+    } else if (bmi >= 35 && bmi < 40) {
       return "Obesity Class II";
     } else {
       return "Obesity Class III";
@@ -85,23 +79,23 @@ export default function Page() {
   };
 
   const getBMICategoryColor = (): string => {
-    if(bmi === null) return "black";
-    
-    if(bmi < 10) {
+    if (bmi === null) return "black";
+
+    if (bmi < 10) {
       return "#FF5722"; // Severe Underweight
-    } else if(bmi >= 10 && bmi < 16) {
+    } else if (bmi >= 10 && bmi < 16) {
       return "#FF9800"; // Underweight
-    } else if(bmi >= 16 && bmi <= 17) {
+    } else if (bmi >= 16 && bmi <= 17) {
       return "#FFE400"; // Mild Underweight
-    } else if(bmi >= 17 && bmi < 18.5) {
+    } else if (bmi >= 17 && bmi < 18.5) {
       return "#D4E157"; // Slight Underweight
-    } else if(bmi >= 18.5 && bmi < 25) {
+    } else if (bmi >= 18.5 && bmi < 25) {
       return "#4CAF50"; // Normal
-    } else if(bmi >= 25 && bmi < 30) {
+    } else if (bmi >= 25 && bmi < 30) {
       return "#FF9800"; // Overweight
-    } else if(bmi >= 30 && bmi < 35) {
+    } else if (bmi >= 30 && bmi < 35) {
       return "#FF5722"; // Obesity I
-    } else if(bmi >= 35 && bmi < 40) {
+    } else if (bmi >= 35 && bmi < 40) {
       return "#D20000"; // Obesity II
     } else {
       return "#900000"; // Obesity III
@@ -112,12 +106,14 @@ export default function Page() {
     setIsShakeCompleted(true);
   };
 
+  const weightProgress = Math.min(100, Math.max(0, (parseFloat(formData.weight || "0") / 200) * 100));
+  const heightProgress = Math.min(100, Math.max(0, (parseFloat(formData.height || "0") / 250) * 100));
+
   return (
     <div className="py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
-        <div
-          className="bg-white/10 border-2 border-white/5 shadow-2xl rounded-2xl p-8 backdrop-blur-md transition-all hover:bg-white/15">
-          {isShakeCompleted && <Video/>}
+        <div className="bg-white/10 border-2 border-white/5 shadow-2xl rounded-2xl p-8 backdrop-blur-md transition-all hover:bg-white/15">
+          {isShakeCompleted && <Video />}
 
           <div
             className={`space-y-8 ${isExtremeBMI(bmi) ? "animate-shake" : ""}`}
@@ -141,8 +137,13 @@ export default function Page() {
                       name="weight"
                       value={formData.weight || 0}
                       onChange={handleInputChange}
+                      style={{
+                        background: `linear-gradient(to right, #f50 ${weightProgress}%, #374151 ${weightProgress}%)`,
+                      }}
                     />
-                    <div className="weight-value text-white text-center mt-2">0</div>
+                    <div className="weight-value text-white text-center mt-2 font-medium">
+                      {formData.weight || 0} kg
+                    </div>
                   </div>
                 </label>
 
@@ -158,8 +159,13 @@ export default function Page() {
                       name="height"
                       value={formData.height || 0}
                       onChange={handleInputChange}
+                      style={{
+                        background: `linear-gradient(to right, #f50 ${heightProgress}%, #374151 ${heightProgress}%)`,
+                      }}
                     />
-                    <div className="height-value text-white text-center mt-2">0</div>
+                    <div className="height-value text-white text-center mt-2 font-medium">
+                      {formData.height || 0} cm
+                    </div>
                   </div>
                 </label>
               </div>
@@ -195,4 +201,4 @@ export default function Page() {
       </div>
     </div>
   );
-};
+}
