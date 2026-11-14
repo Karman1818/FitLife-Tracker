@@ -10,35 +10,74 @@
 [![NextAuth.js](https://img.shields.io/badge/NextAuth.js-v5.0_beta-purple?style=for-the-badge&logo=next.js)](https://authjs.dev/)
 [![Live Demo](https://img.shields.io/badge/Live_Demo-tmp0.averi.me-brightgreen?style=for-the-badge&logo=vercel)](https://tmp0.averi.me/)
 
-**FitLife Tracker** is a modern, full-stack web application designed to help users monitor their daily fitness journey, track calories & macronutrients across weekly meals, calculate BMI with an interactive HTML5 canvas dial visualizer, and explore healthy meal recipes. Built with **Next.js 15 (App Router)**, **React 19**, **Tailwind CSS**, and **Zustand**, featuring a glassmorphic aesthetic.
+**FitLife Tracker** is a modern, full-stack fitness and nutrition tracking web application. It empowers users to manage their daily diet, track caloric and macronutrient intake through an interactive weekly calendar, calculate BMI with an animated HTML5 canvas dial gauge, and discover balanced recipes with step-by-step cooking instructions. Built with **Next.js 15 (App Router)**, **React 19**, **Tailwind CSS**, and **Zustand**, featuring a sleek glassmorphic aesthetic.
 
 🔗 **Live Application:** [https://tmp0.averi.me/](https://tmp0.averi.me/)
 
 ---
 
+## 📸 Application Showcase
+
+### 🏠 Dashboard & Daily Goals Tracking
+| Main Dashboard (Goals & Water) | Food & Macro Logger |
+| :---: | :---: |
+| ![Dashboard Goals](docs/screenshots/fitlifetracker1.png) | ![Food Logger](docs/screenshots/fitlifetracker2.png) |
+| *Day selector, calorie & water progress dials with quick water logging (+250ml, +500ml)* | *Direct macro entry (Calories, Protein, Carbs, Fat) with portion scaling* |
+
+### 📅 Weekly Meals & Interactive Calendar Planner
+| Meals Breakdown & Health Metrics | Interactive Calendar Planner (`/calories`) |
+| :---: | :---: |
+| ![Meals & Metrics](docs/screenshots/fitlifetracker3.png) | ![Calendar Planner](docs/screenshots/fitlifetracker4.png) |
+| *Daily meals breakdown, macro totals, and personal BMI metrics* | *Interactive 7-day calendar strip, date picker popover, and daily nutrition budget* |
+
+### ⚖️ BMI Calculator & Recipe Discovery
+| Interactive BMI Calculator (`/bmi`) | Recipe Discovery Catalog (`/meals`) |
+| :---: | :---: |
+| ![BMI Calculator](docs/screenshots/fitlifetracker5.png) | ![Recipe Catalog](docs/screenshots/fitlifetracker6.png) |
+| *Dual sliders & numeric inputs synced with animated Canvas needle gauge* | *Curated global recipes with cuisine tags and dynamic shuffle* |
+
+### 👨‍🍳 Recipe Details & Preparation Steps
+<p align="center">
+  <img src="docs/screenshots/fitlifetracker7.png" alt="Recipe Details" width="90%" style="border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);" />
+  <br />
+  <em>Step-by-step cooking steps with ingredient checklist and YouTube video links (<code>/meals/recipes</code>)</em>
+</p>
+
+---
+
 ## ✨ Key Features
 
-- 📊 **Interactive BMI Gauge Visualizer**:
+- 📅 **Interactive Calendar & Weekly Diet Planner (`/calories`)**:
+  - Interactive 7-day calendar strip with date numbers, weekday abbreviations, and total kcal badges.
+  - Native **Date Picker popover** to jump to any date across past or future periods.
+  - One-click **"Today"** quick jump button and week navigation arrows.
+  - Real-time aggregated macro meters: 🥩 **Protein**, 🌾 **Carbohydrates**, and 🥑 **Fat**.
+  - Focused single-day view and full weekly view toggle (`Day` vs `All Days`).
+
+- 📊 **Interactive BMI Gauge Visualizer (`/bmi`)**:
   - Dynamic HTML5 Canvas-powered dial gauge with smooth animated indicator needle.
-  - Interactive range sliders for weight and height adjustments.
+  - **Two-way synchronized controls**: interactive range sliders and manual numeric keyboard inputs.
   - Real-time BMI score calculation with color-coded classification categories (*Underweight, Normal Weight, Overweight, Obesity Classes*).
-  - Visual feedback for extreme BMI values.
+  - Metric persistence in local storage with automatic dashboard synchronization.
 
-- 🥗 **Weekly Calorie & Macronutrient Tracker**:
-  - Comprehensive daily tracker covering Monday through Sunday.
-  - Categorized meal breakdowns: *Breakfast*, *Second Breakfast*, *Lunch*, *Afternoon Snack*, and *Dinner*.
-  - Detailed product logging: weight (g), calories (kcal), protein (g), carbohydrates (g), and fat (g).
-  - Client-side state persistence and instant updates using **Zustand**.
+- 🥗 **Centralized Daily Dashboard (`/`)**:
+  - Day selector tab bar covering Monday through Sunday with current day indicator.
+  - **Daily Calorie Goal** circular progress dial with remaining budget calculations.
+  - **Daily Water Goal** with quick logging actions (`+250ml`, `+500ml`, `-250ml`, `Reset`).
+  - Integrated **Food Logger** with OpenFoodFacts database search and direct macro overrides.
+  - Cards for 5 daily meals (*Breakfast*, *Second Breakfast*, *Lunch*, *Afternoon Snack*, *Dinner*).
 
-- 🍲 **Recipe & Meal Ideas**:
-  - Dedicated section featuring meal recipes and dietary suggestions.
+- 🍲 **Recipe Catalog & Step-by-Step Cooking (`/meals`, `/meals/recipes`)**:
+  - Global meal ideas with cuisine filters, category badges, and instant random recipe shuffling.
+  - Detailed recipe inspector featuring hero cards, preparation time, and direct YouTube video tutorials.
+  - Interactive ingredients checklist and structured step-by-step cooking cards.
 
-- 👤 **User Profile & Stats Overview**:
-  - Personal health stats dashboard displaying current metrics and recent meal records.
+- 👤 **User Profile & Authentication**:
+  - Personal health stats overview and account settings.
   - Secure authentication flow using **Auth.js (NextAuth v5)** with Resend magic links and Prisma database sessions.
 
 - 🎨 **Glassmorphism Design System**:
-  - Elegant dark theme featuring frosted glass panels (`backdrop-blur`), subtle borders, gradient controls, and responsive UI layout.
+  - Frosted glass panels (`backdrop-blur-md`), subtle borders, gradient controls, and responsive UI layout.
 
 ---
 
@@ -48,7 +87,7 @@
 - **Framework:** [Next.js 15](https://nextjs.org/) (App Router, Turbopack)
 - **Library:** [React 19](https://react.dev/)
 - **Styling:** [Tailwind CSS 3.4](https://tailwindcss.com/) + `tailwindcss-animate`
-- **State Management:** [Zustand 5](https://zustand-demo.pmnd.rs/)
+- **State Management:** [Zustand 5](https://zustand-demo.pmnd.rs/) with `persist` localStorage middleware
 - **Forms & Validation:** [TanStack React Form](https://tanstack.com/form), [Zod 3](https://zod.dev/)
 - **Icons & Graphics:** [Lucide React](https://lucide.dev/), [React Icons](https://react-icons.github.io/react-icons/), HTML5 Canvas API
 
@@ -68,35 +107,35 @@
 
 ```text
 FitLife-Tracker/
+├── .github/workflows/    # GitHub Actions CI/CD pipelines
 ├── app/                  # Next.js App Router pages and API routes
 │   ├── api/auth/         # NextAuth authentication endpoints
 │   ├── bmi/              # BMI Calculator page & Canvas visualizer
-│   ├── calories/         # Weekly Calorie & Macro tracking page
-│   ├── meals/            # Recipe discovery & meal ideas page
+│   ├── calories/         # Interactive Calendar & Calorie tracking page
+│   ├── meals/            # Recipe discovery catalog
+│   │   └── recipes/      # Detailed recipe instructions & ingredients view
 │   ├── profile/[id]/     # User profile & stats view
-│   ├── globals.css       # Global styles & Tailwind imports
 │   ├── layout.tsx        # Root layout with navigation & theme wrapper
-│   └── page.tsx          # Dashboard overview homepage
+│   └── page.tsx          # Main dashboard overview homepage
 ├── components/           # Reusable UI components
-│   ├── averi-ui/         # Styled custom primitives (Buttons, Controls)
-│   ├── AddProductForm.tsx          # Product creation component
-│   ├── AddProductToMealForm.tsx    # Add product to meal modal/form
-│   ├── AddedMealsList.tsx          # Summary list of added meals
+│   ├── AddedMealsList.tsx          # Dashboard nutrition & food logger
+│   ├── AddProductToMealForm.tsx    # OpenFoodFacts product search & logging
 │   ├── DrawBMICanvas.tsx           # Custom HTML5 Canvas BMI gauge meter
-│   └── Nav.tsx                     # Top navbar component
+│   ├── GoalCard.tsx                # Calorie & Water circular progress cards
+│   ├── PieChartOutline.tsx         # Circular SVG/Canvas gauge component
+│   ├── RecipesComponent.tsx        # Meal discovery catalog components
+│   └── Nav.tsx                     # Top glassmorphic navbar component
+├── docs/screenshots/     # Application screenshots & showcase assets
 ├── lib/                  # Utilities, configuration, & Prisma client
-│   ├── env.ts            # Type-safe environment validation via Zod
+│   ├── bmi.ts            # BMI calculation and category helpers
 │   ├── prisma.ts         # Singleton Prisma client instance
 │   └── utils.ts          # Classname utilities (cn)
 ├── stores/               # Client-side Zustand stores
-│   └── calories.ts       # Global state for days, meals, and products
+│   └── calories.ts       # Global state for days, meals, products, and goals
+├── tests/                # Automated Vitest test suites
 ├── prisma/               # Database schema & migrations
-│   └── schema.prisma     # Prisma data models (User, Account, Session, etc.)
 └── public/               # Static assets & media
 ```
-
----
-
 
 ---
 
@@ -105,11 +144,11 @@ FitLife-Tracker/
 FitLife Tracker was developed as a collaborative team project. As the repository creator and Core Full-Stack Developer (**Karman1818**), my primary contributions spanned client-side state architecture, nutritional computation, and meal management flows:
 
 * **Global State Management (Zustand Store)**:
-  * Architected and refactored the centralized reactive store (`productStore` / `stores/calories.ts`), handling product additions, modifications, deletions, and state persistence with seamless UI synchronization.
+  * Architected and refactored the centralized reactive store (`stores/calories.ts`), adding state persistence (`persist`), daily goal tracking (calories and water), and seamless UI synchronization.
 * **Calorie & Macro Computation Engine (CaloriesManager & Meal Logs)**:
-  * Implemented the calculation logic for real-time daily caloric intake, macro breakdowns (protein, carbohydrates, fats), and target tracking across 5 daily meal categories (`AddedMealsList`, `AddProductToMealForm`).
-* **Product Logging & Search Flow (AddProductForm)**:
-  * Built interactive form workflows for adding nutritional items, incorporating dynamic product lookups, custom serving sizes, and instant validation.
+  * Implemented the calculation logic for real-time daily caloric intake, macro breakdowns (protein, carbohydrates, fats), and target tracking across daily meal categories.
+* **Interactive Calendar & Date Navigation (`/calories`)**:
+  * Designed the modern calendar strip and single-day focused view, enabling date picking, macro aggregation, and daily budget comparisons.
 * **Recipe Catalog & Meal Discovery**:
   * Developed the dynamic meal and recipe browsing pages (`/meals`, `/meals/recipes`, `RecipesComponent`), allowing users to inspect ingredients, macros, and incorporate recipes into their daily schedules.
 * **Navigation Architecture & Routing**:
@@ -126,6 +165,8 @@ FitLife Tracker was brought to life thanks to close collaboration, shared vision
 * **[justPoosai](https://github.com/justPoosay)** (Oscar / Mike) — Interactive HTML5 Canvas BMI gauge visualizer, local metric persistence (LocalStorage), logo design (`components/icons/logo`), and initial frontend UI prototypes.
 
 Thank you to everyone for the great teamwork, brainstorming sessions, and shared dedication to making this project a reality! 🚀
+
+---
 
 ## 🚀 Getting Started
 
@@ -167,6 +208,7 @@ DATABASE_URL="postgresql://user:password@localhost:5432/fitlife_db?schema=public
 
 # NextAuth Configuration
 AUTH_SECRET="your-super-secret-key-change-me"
+NEXTAUTH_URL="http://localhost:3000"
 
 # Resend Email Provider (Magic Link Auth)
 EMAIL_FROM="noreply@yourdomain.com"
@@ -227,4 +269,3 @@ Contributions are welcome! Feel free to open issues or submit pull requests.
 ## 📄 License
 
 Distributed under the MIT License. See `LICENSE` for more details.
-
