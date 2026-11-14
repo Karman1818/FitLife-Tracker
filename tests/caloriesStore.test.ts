@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { useCaloriesStore } from "@/stores/calories";
+import { useCaloriesStore, getCurrentDayId } from "@/stores/calories";
 
 describe("Calories Store (Zustand)", () => {
   beforeEach(() => {
@@ -120,5 +120,37 @@ describe("Calories Store (Zustand)", () => {
     expect(lunch.products).toHaveLength(1);
     expect(lunch.products[0].name).toBe("Chicken Breast");
     expect(lunch.calories).toBe(330);
+  });
+
+  it("should update calorie and water goals", () => {
+    const { setCalorieGoal, setWaterGoal } = useCaloriesStore.getState();
+
+    setCalorieGoal(2500);
+    setWaterGoal(3000);
+
+    expect(useCaloriesStore.getState().calorieGoal).toBe(2500);
+    expect(useCaloriesStore.getState().waterGoal).toBe(3000);
+  });
+
+  it("should log and manipulate water intake per day", () => {
+    const { addWaterIntake, setWaterIntake } = useCaloriesStore.getState();
+
+    setWaterIntake(1, 500);
+    expect(useCaloriesStore.getState().waterByDay[1]).toBe(500);
+
+    addWaterIntake(1, 250);
+    expect(useCaloriesStore.getState().waterByDay[1]).toBe(750);
+
+    addWaterIntake(1, -250);
+    expect(useCaloriesStore.getState().waterByDay[1]).toBe(500);
+
+    setWaterIntake(1, 0);
+    expect(useCaloriesStore.getState().waterByDay[1]).toBe(0);
+  });
+
+  it("should return a valid day id between 1 and 7 from getCurrentDayId", () => {
+    const dayId = getCurrentDayId();
+    expect(dayId).toBeGreaterThanOrEqual(1);
+    expect(dayId).toBeLessThanOrEqual(7);
   });
 });
