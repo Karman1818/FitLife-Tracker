@@ -153,6 +153,20 @@ FitLife Tracker was developed as a collaborative team project. As the repository
   * Developed the dynamic meal and recipe browsing pages (`/meals`, `/meals/recipes`, `RecipesComponent`), allowing users to inspect ingredients, macros, and incorporate recipes into their daily schedules.
 * **Navigation Architecture & Routing**:
   * Structured application routing, layout hierarchy, page transitions, and dashboard widget integrations to ensure a cohesive user journey.
+* **Interactive Calendar & Weekly Diet Planner Overhaul (`/calories`)**:
+  * Replaced the overwhelming all-day scroll with an intuitive single-day focused planner featuring a dynamic 7-day week calendar strip and native date picker popover.
+  * Implemented real-time daily macro breakdown counters (Protein, Carbohydrates, Fat) and visual progress bars against daily caloric goals.
+* **Unified Dashboard & Food Logger Redesign (`/`)**:
+  * Engineered the centralized daily dashboard with day switching, circular calorie & water goal gauges, and quick water hydration buttons (`+250ml`, `+500ml`, `-250ml`, `Reset`).
+  * Built a dual-mode Food Logger (Manual custom macro entry & OpenFoodFacts search) with zero-tolerant numeric inputs, fixing input locking issues and synchronizing live with the weekly diet store.
+* **Interactive BMI Calculator Modernization (`/bmi`)**:
+  * Implemented two-way synchronized numeric keyboard inputs alongside the range sliders for precise height and weight entry, with automated state persistence.
+  * Optimized HTML5 Canvas dial meter animation loop with `requestAnimationFrame`, eliminating re-render leaks and correcting needle orientation.
+* **Recipe Details & Cooking Guide UX (`/meals/recipes`)**:
+  * Redesigned the recipe inspection page with hero cards, categorized tags, interactive ingredient checklists, and structured step-by-step cooking cards with YouTube tutorials.
+* **Automated Testing & CI/CD Pipeline**:
+  * Established a comprehensive Vitest test suite (`tests/bmi.test.ts`, `tests/caloriesStore.test.ts`, `tests/utils.test.ts`) validating BMI logic, Zustand state reducers, and goal calculations (15/15 passed).
+  * Modernized GitHub Actions CI pipeline covering automated linting, strict TypeScript verification, test execution, and production Next.js builds.
 
 ---
 
